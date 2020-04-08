@@ -5,8 +5,8 @@
 
 class Line {
 	private:
-		Point p1;
-		Point p2;
+		Point p[1];
+		int size = 1;
 	public:
 		Line ();
 		
@@ -21,6 +21,8 @@ class Line {
 		Point getP1 ();
 		
 		Point getP2 ();
+
+		Point getPN (int n);
 		
 		void setLine (Point p1, Point p2);
 		
@@ -31,6 +33,10 @@ class Line {
 		void setP2 (Point p2);
 
 		void setP2 (float x2, float y2);
+
+		void setPN (int n, Point p);
+
+		void setPN (int n, float xn, float yn);
 };
 
 #endif
