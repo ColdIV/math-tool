@@ -57,10 +57,18 @@ Token TokenStream::get() {
 		case 'm':
 			// read the subsequent number of the variable into strValue
 			// numValue will later be the assigned value of that variable
+			char nextChar;
 			int varNumber;
-			*(this->ip) >> varNumber;
-			this->currentToken.kind = 'v';
-			this->currentToken.strValue = to_string(varNumber);
+			*(this->ip) >> nextChar;
+			if(!isdigit(nextChar)) {
+				cout << "ERROR: invalid variable number: " << nextChar << endl;
+				this->currentToken = {'e', "end", 0};
+			} else {
+				this->ip->putback(nextChar);
+				*(this->ip) >> varNumber;
+				this->currentToken.kind = 'v';
+				this->currentToken.strValue = to_string(varNumber);
+			}
 			break;
 		default: // error
 			cout << "ERROR: invalid input: " << ch << endl;
