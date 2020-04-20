@@ -62,7 +62,7 @@ Token TokenStream::get() {
 			*(this->ip) >> nextChar;
 			if(!isdigit(nextChar)) {
 				cout << "ERROR: invalid variable number: " << nextChar << endl;
-				this->currentToken = {'e', "end", 0};
+				this->currentToken = {'#', "skip", 0};
 			} else {
 				this->ip->putback(nextChar);
 				*(this->ip) >> varNumber;
@@ -70,9 +70,12 @@ Token TokenStream::get() {
 				this->currentToken.strValue = to_string(varNumber);
 			}
 			break;
+		case '#': // skip
+			this->currentToken = {'#', "skip", 0};
+			break;
 		default: // error
 			cout << "ERROR: invalid input: " << ch << endl;
-			this->currentToken = {'e', "end", 0};
+			this->currentToken = {'#', "skip", 0};
 			break;
 	}
 	

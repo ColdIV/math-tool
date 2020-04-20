@@ -5,6 +5,7 @@ Parser::Parser(TokenStream *tsp) {
 }
 
 double Parser::expr(bool getNeeded) {
+	this->clearError();
 	double left = term(getNeeded);
 	
 	while(true) {
@@ -32,7 +33,7 @@ double Parser::term(bool getNeeded) {
 			case '/': {
 				double right = primary(true);
 				if(right == 0) {
-					cout << "ERROR: division by zero" << endl;
+					this->setError("ERROR: division by zero");
 					return 0;
 				}
 				left /= right;
@@ -60,7 +61,7 @@ double Parser::primary(bool getNeeded) {
 		case '(': { // start of prioritized expression
 			double expression = expr(true);
 			if ((*tsp).current().kind != ')') {
-				cout << "ERROR: ) expected!" << endl;
+				this->setError("ERROR: ) expected!");
 				return 0;
 			}
 			(*tsp).get(); // drop the ")" at the end of the expression from currentToken
@@ -69,7 +70,7 @@ double Parser::primary(bool getNeeded) {
 		case 'v': { // variable
 			int varNumber = stoi((*tsp).current().strValue) - 1;
 			if(varNumber > 100) {
-				cout << "ERROR: you can store up to 100 variables" << endl;
+				this->setError("ERROR: you can store up to 100 variables");
 				return 0;
 			}
 			(*tsp).get(); // get next token
@@ -82,9 +83,28 @@ double Parser::primary(bool getNeeded) {
 				return memory[varNumber];
 			}
 		}
+		case '#': { // skip
+			this->setError("");
+			return 0;
+		}
 		default:
-			cout << "ERROR: not a primary!" << endl;
+			this->setError("ERROR: not a primary!");
 			return 0;
 	}
 }
 
+bool Parser::getError() {
+	return this->error.state;
+}
+
+string Parser::getErrorMsg() {
+	return this->error.message;
+}
+
+void Parser::setError(string msg) {
+	this->error = {true, msg};
+}
+
+void Parser::clearError() {
+	this->error = {false, ""};
+}
