@@ -70,9 +70,6 @@ Token TokenStream::get() {
 				this->currentToken.strValue = to_string(varNumber);
 			}
 			break;
-		case '#': // skip
-			this->currentToken = {'#', "skip", 0};
-			break;
 		default: // error
 			cout << "ERROR: invalid input: " << ch << endl;
 			this->currentToken = {'#', "skip", 0};
