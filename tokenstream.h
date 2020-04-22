@@ -4,14 +4,12 @@
 #include <iostream>
 #include "token.h"
 
-using namespace std;
-
 class TokenStream {
 private:
-	istream *ip;
+	std::istream *ip;
 	Token currentToken;
 public:
-	TokenStream(istream *ip);
+	TokenStream(std::istream *ip);
 	
 	Token get(); 
 	Token current();

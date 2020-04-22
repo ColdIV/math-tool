@@ -3,11 +3,9 @@
 
 #include <string>
 
-using namespace std;
-
 struct Token {
 	char kind;
-	string strValue;
+	std::string strValue;
 	double numValue = 0;
 };
 

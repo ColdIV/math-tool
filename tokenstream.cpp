@@ -1,6 +1,6 @@
 #include "tokenstream.h"
 
-TokenStream::TokenStream(istream *ip) {
+TokenStream::TokenStream(std::istream *ip) {
 	this->ip = ip;
 	this->currentToken = {'e', "end", 0};
 }
@@ -61,17 +61,17 @@ Token TokenStream::get() {
 			int varNumber;
 			*(this->ip) >> nextChar;
 			if(!isdigit(nextChar)) {
-				cout << "ERROR: invalid variable number: " << nextChar << endl;
+				std::cout << "ERROR: invalid variable number: " << nextChar << "\n";
 				this->currentToken = {'#', "skip", 0};
 			} else {
 				this->ip->putback(nextChar);
 				*(this->ip) >> varNumber;
 				this->currentToken.kind = 'v';
-				this->currentToken.strValue = to_string(varNumber);
+				this->currentToken.strValue = std::to_string(varNumber);
 			}
 			break;
 		default: // error
-			cout << "ERROR: invalid input: " << ch << endl;
+			std::cout << "ERROR: invalid input: " << ch << "\n";
 			this->currentToken = {'#', "skip", 0};
 			break;
 	}

@@ -97,11 +97,11 @@ bool Parser::getError() {
 	return this->error.state;
 }
 
-string Parser::getErrorMsg() {
+std::string Parser::getErrorMsg() {
 	return this->error.message;
 }
 
-void Parser::setError(string msg) {
+void Parser::setError(std::string msg) {
 	this->error = {true, msg};
 }
 

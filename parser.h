@@ -16,8 +16,8 @@ class Parser {
 		double term(bool getNeeded);
 		double primary(bool getNeeded);
 		bool getError();
-		string getErrorMsg();
-		void setError(string msg);
+		std::string getErrorMsg();
+		void setError(std::string msg);
 		void clearError();
 };
 
