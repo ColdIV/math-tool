@@ -17,9 +17,6 @@ class Square : public Line {
 		Square (Point p1, float x2, float y2);
 
 		Square (float x1, float y1, float x2, float y2);
-		
-        float getWidth ();
-        float getHeight ();
 };
 
 #endif
