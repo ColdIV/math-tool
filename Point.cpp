@@ -1,5 +1,7 @@
 #include "Point.h"
 
+#include <math.h>
+
 Point::Point () {
 	this->setPoint(0, 0);
 }
@@ -27,4 +29,8 @@ void Point::setX (float x) {
 
 void Point::setY (float y) {
 	this->y = y;
+}
+
+float Point::distanceTo (Point x) {
+	return sqrt(pow(x.getX() - this->getX(), 2) + pow(x.getY() - this->getY(), 2));
 }
