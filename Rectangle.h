@@ -1,5 +1,5 @@
-#ifndef _Rectangle_H_
-#define _Rectangle_H_
+#ifndef _RECTANGLE_H_
+#define _RECTANGLE_H_
 
 #include "Triangle.h"
 
