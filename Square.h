@@ -1,12 +1,14 @@
 #ifndef _SQUARE_H_
 #define _SQUARE_H_
 
-#include "Line.h"
+#include "Point.h"
 
-class Square : public Line {
+class Square {
 	private:
 		Point p1;
 		Point p2;
+		Point p3;
+		Point p4;
 	public:
 		Square ();
 		
@@ -17,6 +19,13 @@ class Square : public Line {
 		Square (Point p1, float x2, float y2);
 
 		Square (float x1, float y1, float x2, float y2);
+
+		Point getP1 ();
+		Point getP2 ();
+		Point getP3 ();
+		Point getP4 ();
+
+		void genPoints (Point p1, Point p2);
 };
 
 #endif
