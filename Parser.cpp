@@ -100,6 +100,12 @@ double Parser::primary(bool getNeeded) {
 	}
 }
 
+void Parser::listMemory() {
+	for(int i = 0; i < this->currentMemPos; i++) {
+		std::cout << "[m" << i+1 << "] " << this->memory[i] << "\n";
+	}
+}
+
 bool Parser::getError() {
 	return this->error.state;
 }

@@ -17,6 +17,9 @@ class Parser {
 		double expr(bool getNeeded);
 		double term(bool getNeeded);
 		double primary(bool getNeeded);
+		
+		void listMemory();
+		
 		bool getError();
 		std::string getErrorMsg();
 		void setError(std::string msg);
