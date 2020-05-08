@@ -1,4 +1,4 @@
-#include "tokenstream.h"
+#include "TokenStream.h"
 
 TokenStream::TokenStream(std::istream *ip) {
 	this->ip = ip;

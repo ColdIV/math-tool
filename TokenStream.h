@@ -2,7 +2,7 @@
 #define _TOKENSTREAM_H_
 
 #include <iostream>
-#include "token.h"
+#include "Token.h"
 
 class TokenStream {
 private:

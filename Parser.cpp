@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "Parser.h"
 
 Parser::Parser(TokenStream *tsp) {
 	this->tsp = tsp;
