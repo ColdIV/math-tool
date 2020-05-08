@@ -4,10 +4,13 @@
 #include "TokenStream.h"
 #include "error.h"
 
+#define MAX_MEMORY 100
+
 class Parser {
 	private:
-		double memory[100] = {};
+		double memory[MAX_MEMORY] = {};
 		int currentMemPos;
+		bool memoryFull;
 		bool subExpr;
 		TokenStream *tsp;
 		Error error = {false, ""};

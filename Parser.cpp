@@ -4,6 +4,7 @@ Parser::Parser(TokenStream *tsp) {
 	this->tsp = tsp;
 	this->currentMemPos = 0;
 	this->subExpr = false;
+	this->memoryFull = false;
 }
 
 double Parser::expr(bool getNeeded) {
@@ -19,7 +20,10 @@ double Parser::expr(bool getNeeded) {
 				left -= term(true);
 				break;
 			default:
-				if(currentMemPos == 99) currentMemPos = 0; // reset memory
+				if(currentMemPos == MAX_MEMORY - 1) {
+					currentMemPos = 0; // reset memory
+					memoryFull = true;
+				}
 				if(!subExpr) memory[currentMemPos++] = left; // save result to memory
 				
 				subExpr = false;
@@ -76,8 +80,8 @@ double Parser::primary(bool getNeeded) {
 		}
 		case 'v': { // variable
 			int varNumber = stoi((*tsp).current().strValue) - 1;
-			if(varNumber > 100) {
-				this->setError("ERROR: you can store up to 100 variables");
+			if(varNumber > MAX_MEMORY) {
+				this->setError("ERROR: variable number invalid!");
 				return 0;
 			}
 			(*tsp).get(); // get next token
@@ -101,7 +105,9 @@ double Parser::primary(bool getNeeded) {
 }
 
 void Parser::listMemory() {
-	for(int i = 0; i < this->currentMemPos; i++) {
+	int end = this->memoryFull ? MAX_MEMORY : this->currentMemPos;
+	
+	for(int i = 0; i < end; i++) {
 		std::cout << "[m" << i+1 << "] " << this->memory[i] << "\n";
 	}
 }
