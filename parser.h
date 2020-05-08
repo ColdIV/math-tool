@@ -7,6 +7,8 @@
 class Parser {
 	private:
 		double memory[100] = {};
+		int currentMemPos;
+		bool subExpr;
 		TokenStream *tsp;
 		Error error = {false, ""};
 	public:

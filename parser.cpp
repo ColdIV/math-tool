@@ -2,6 +2,8 @@
 
 Parser::Parser(TokenStream *tsp) {
 	this->tsp = tsp;
+	this->currentMemPos = 0;
+	this->subExpr = false;
 }
 
 double Parser::expr(bool getNeeded) {
@@ -17,6 +19,10 @@ double Parser::expr(bool getNeeded) {
 				left -= term(true);
 				break;
 			default:
+				if(currentMemPos == 99) currentMemPos = 0; // reset memory
+				if(!subExpr) memory[currentMemPos++] = left; // save result to memory
+				
+				subExpr = false;
 				return left;
 		}
 	}
@@ -59,6 +65,7 @@ double Parser::primary(bool getNeeded) {
 		case '-': // unary minus
 			return -primary(true);
 		case '(': { // start of prioritized expression
+			subExpr = true; // do not save subexpression to memory
 			double expression = expr(true);
 			if ((*tsp).current().kind != ')') {
 				this->setError("ERROR: ) expected!");
