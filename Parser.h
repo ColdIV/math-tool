@@ -19,6 +19,7 @@ class Parser {
 		
 		double expr(bool getNeeded);
 		double term(bool getNeeded);
+		double power(bool getNeeded);
 		double primary(bool getNeeded);
 		
 		void listMemory();
