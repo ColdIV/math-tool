@@ -109,6 +109,17 @@ double Parser::primary(bool getNeeded) {
 				return memory[varNumber];
 			}
 		}
+		case 't': { // trigonometric function
+			// calling primary(true) will trigger a new subexpression, since
+			// a trigonometric function name always has to be followed by (
+			if((*tsp).current().strValue == "sin") {
+				return sin(primary(true));
+			} else if((*tsp).current().strValue == "cos") {
+				return cos(primary(true));
+			} else {
+				return tan(primary(true));
+			}
+		}
 		case '#': { // skip
 			this->setError("");
 			return 0;
