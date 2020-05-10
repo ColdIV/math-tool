@@ -1,36 +1,29 @@
 #include "Point.h"
 
-#include <math.h>
-
 Point::Point () {
-	this->setPoint(0, 0);
+	this->p = std::make_pair(0, 0);
 }
 
-Point::Point (float x, float y) {
-	this->setPoint(x, y);
+Point::Point (double x, double y) {
+	this->p = std::make_pair(x, y);
 }
 
-float Point::getX () {
-	return this->x;
+Point::Point (std::pair <double, double> p) {
+	this->p = p;
 }
 
-float Point::getY () {
-	return this->y;
+double Point::x() {
+	return this->p.first;
 }
 
-void Point::setPoint (float x, float y) {
-	this->setX(x);
-	this->setY(y);
+double Point::y() {
+	return this->p.second;
 }
 
-void Point::setX (float x) {
-	this->x = x;
+void Point::setX(double x) {
+	this->p.first = x;
 }
 
-void Point::setY (float y) {
-	this->y = y;
-}
-
-float Point::distanceTo (Point x) {
-	return sqrt(pow(x.getX() - this->getX(), 2) + pow(x.getY() - this->getY(), 2));
+void Point::setY(double y) {
+	this->p.second = y;
 }

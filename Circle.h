@@ -1,30 +1,19 @@
 #ifndef _CIRCLE_H_
 #define _CIRCLE_H_
 
-#include "Point.h"
+#include "Object.h"
 
-class Circle {
+class Circle : public Object {
 	private:
-		Point p;
-        float r;
+		double radius;
 	public:
 		Circle ();
-
-        Circle (float r);
 		
-		Circle (float x, float y, float r);
-
-        Circle (Point p, float r);
-
-        Point getPoint ();
-
-        float getRadius ();
+		Circle (Point point, double radius);
 		
-		void setCircle (float x, float y, float r);
-
-		void setCircle (Point p, float r);
-
-        void setRadius (float r);
+		void setRadius (double radius);
+		
+		double getRadius ();
 };
 
 #endif
