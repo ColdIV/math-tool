@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Parser.h"
 
 Parser::Parser(TokenStream *tsp) {
@@ -33,15 +34,15 @@ double Parser::expr(bool getNeeded) {
 }
 
 double Parser::term(bool getNeeded) {
-	double left = primary(getNeeded);
+	double left = power(getNeeded);
 	
 	while(true) {
 		switch((*tsp).current().kind) {
 			case '*':
-				left *= primary(true);
+				left *= power(true);
 				break;
 			case '/': {
-				double right = primary(true);
+				double right = power(true);
 				if(right == 0) {
 					this->setError("ERROR: division by zero");
 					return 0;
@@ -49,6 +50,20 @@ double Parser::term(bool getNeeded) {
 				left /= right;
 				break;
 			}
+			default:
+				return left;
+		}
+	}
+}
+
+double Parser::power(bool getNeeded) {
+	double left = primary(getNeeded);
+	
+	while(true) {
+		switch((*tsp).current().kind) {
+			case '^':
+				left = pow(left, primary(true));
+				break;
 			default:
 				return left;
 		}

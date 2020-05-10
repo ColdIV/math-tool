@@ -30,6 +30,7 @@ Token TokenStream::get() {
 		case '*':
 		case '+':
 		case '-':
+		case '^':
 		case '(':
 		case ')':
 		case '=': // operator
