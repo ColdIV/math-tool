@@ -1,11 +1,9 @@
 #ifndef _RECTANGLE_H_
 #define _RECTANGLE_H_
 
-#include "Triangle.h"
+#include "Object.h"
 
-class Rectangle : public Triangle {
-	private:
-		Point p4;
+class Rectangle : public Object {
 	public:
 		Rectangle ();
 		
@@ -41,13 +39,7 @@ class Rectangle : public Triangle {
 
         Rectangle (float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 		
-		Point getP4 ();
-		
 		void setRectangle (Point p1, Point p2, Point p3, Point p4);
-		
-		void setP4 (Point p4);
-
-		void setP4 (float x4, float y4);
 };
 
 #endif
