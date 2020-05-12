@@ -59,13 +59,28 @@ Token TokenStream::get() {
 		case 't':
 			// we're reading a trigonometric function, put first char back
 			this->ip->putback(ch);
-			// record the type of the function, can't use >> because it won't
-			// stop at the (
-			std::getline(*(this->ip), this->currentToken.strValue, '(');
-			// error checking: what if ( is missing?
-			// possible error checking: check if strValue == sin, cos or tan
-			this->ip->putback('(');
-			this->currentToken.kind = 't';
+			char c;
+			int inputLen;
+			for (inputLen = 0; (c = this->ip->get()) != '(' && !isspace(c); inputLen++) {
+				this->currentToken.strValue[inputLen] = c;
+			}
+			this->currentToken.strValue.resize(inputLen);
+			
+			if(c == '(') {
+				this->ip->putback('(');
+			} 
+			
+			if((this->currentToken.strValue) == "sin") {
+				this->currentToken.kind = 's';
+			} else if((this->currentToken.strValue) == "cos") {
+				this->currentToken.kind = 'c';
+			} else if((this->currentToken.strValue) == "tan") {
+				this->currentToken.kind = 't';
+			} else{
+				std::cout << "ERROR: not a valid function: " << this->currentToken.strValue << "\n";
+				this->currentToken = {'#', "skip", 0};
+			}
+			
 			break;
 		case 'M': // we have a variable
 		case 'm':
