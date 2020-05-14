@@ -6,18 +6,12 @@ TokenStream::TokenStream(std::istream *ip) {
 }
 
 Token TokenStream::get() {
-	char ch = 0;
-
-	// skip whitespace except for new lines
-	do {
-		if(!(this->ip->get(ch))) {
-			this->currentToken = {'e', "end", 0};
-			return this->currentToken;
-		}
-	} while (ch != '\n' && isspace(ch));
+	char ch = EOF;
+	
+	while((ch = this->ip->get()) != '\n' && isspace(ch));
 	
 	switch(ch) {
-		case 0:
+		case EOF:
 		case 'q':
 		case 'e': // end the stream with ctrl+d, q or e
 			this->currentToken = {'e', "end", 0};
