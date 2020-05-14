@@ -61,11 +61,15 @@ Token TokenStream::get() {
 			this->ip->putback(ch);
 			char c;
 			int inputLen;
+			// read characters until we encounter a space or (
+			// strValue can't be empty, otherwise the overwriting by character won't work
+			this->currentToken.strValue = "placeholder";
 			for (inputLen = 0; (c = this->ip->get()) != '(' && !isspace(c); inputLen++) {
 				this->currentToken.strValue[inputLen] = c;
 			}
+			// cat strValue at the end of the function name
 			this->currentToken.strValue.resize(inputLen);
-			
+
 			if(c == '(') {
 				this->ip->putback('(');
 			} 
