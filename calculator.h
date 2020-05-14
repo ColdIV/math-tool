@@ -10,5 +10,6 @@
 
 void calculate(istream* s);
 void calculate(string s);
+double calculate_single(string s);
 
 #endif

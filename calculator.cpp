@@ -37,3 +37,13 @@ void calculate(string s) {
 	
 	calculate(&stream1);
 }
+
+double calculate_single(string s) {
+	istringstream stream1;
+	stream1.str(s);
+	
+	TokenStream TS(&stream1);
+	Parser P(&TS);
+	
+	return P.expr(true);
+}
