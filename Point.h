@@ -1,24 +1,25 @@
 #ifndef _POINT_H_
 #define _POINT_H_
 
+#include <tuple>
+
 class Point {
 	private:
-		float x;
-		float y;
+		std::pair <double, double> p;
 	public:
 		Point ();
 		
-		Point (float x, float y);
+		Point (double x, double y);
 		
-		float getX ();
+		Point (std::pair <double, double> p);
 		
-		float getY ();
+		double x();
 		
-		void setPoint (float x, float y);
+		double y();
 		
-		void setX (float x);
+		void setX(double x);
 		
-		void setY (float y);
+		void setY(double y);
 };
 
 #endif
