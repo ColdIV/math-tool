@@ -1,0 +1,89 @@
+#include "geometricFunctions.h"
+
+// @TODO: Support points somehow
+std::vector <Point> intersection (Object a, Object b) {
+    std::vector <Point> intersections (0);
+
+    // Get all points of the objects
+    std::vector <Point> aPoints = a.getPoints();
+    std::vector <Point> bPoints = b.getPoints();
+
+    // Get all lines of the objects
+    std::vector <Line> aLines (0);
+    std::vector <Line> bLines (0);
+
+    Line tmp;
+
+    for (int i = 1; i < aPoints.size(); ++i) {
+        tmp = Line (aPoints[i - 1], aPoints[i]);
+        aLines.push_back(tmp);
+
+        if (i == aPoints.size() - 1) {
+            tmp = Line (aPoints[i], aPoints[0]);
+            aLines.push_back(tmp);
+        }
+    }
+
+    for (int i = 1; i < bPoints.size(); ++i) {
+        tmp = Line (bPoints[i - 1], bPoints[i]);
+        bLines.push_back(tmp);
+
+        if (i == bPoints.size() - 1) {
+            tmp = Line (bPoints[i], bPoints[0]);
+            bLines.push_back(tmp);
+        }
+    }
+
+    // Find intersctions between those lines
+    for (Line aL : aLines) {
+        for (Line bL : bLines) {
+            // Line A
+            double a1 = aL.getPoint(2).y() - aL.getPoint(1).y();
+            double b1 = aL.getPoint(1).x() - aL.getPoint(2).x();
+            double c1 = a1 * (aL.getPoint(1).x()) + b1 * (aL.getPoint(1).y());
+        
+            // Line B
+            double a2 = bL.getPoint(2).y() - bL.getPoint(1).y();
+            double b2 = bL.getPoint(1).x() - bL.getPoint(2).x();
+            double c2 = a2 * (bL.getPoint(1).x()) + b2 * (bL.getPoint(1).y());
+        
+            double determinant = a1 * b2 - a2 * b1; 
+        
+            // If determinant is 0, the lines are parallel
+            if (determinant) { 
+                double x = (b2 * c1 - b1 * c2) / determinant;
+                double y = (a1 * c2 - a2 * c1) / determinant;
+
+                Point ic = Point (x, y);
+
+                // Check if point is in the desired range (as a line usually is endless)
+                double distIA1 = distance(ic, aL.getPoint(1));
+                double distIA2 = distance(ic, aL.getPoint(2));
+                double distA12 = distance(aL.getPoint(1), aL.getPoint(2));
+
+                if (true ||distIA1 <= distA12 || distIA2 <= distA12) {
+                    // Check for duplicates
+                    if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+                        // Add point to intersections
+                        intersections.push_back(ic); 
+                    }
+                }
+            } 
+        }
+    }
+
+    return intersections;
+}
+
+double angle (Line a, Line b) {
+    return 90.0;
+}
+
+double distance (Point a, Point b) {
+    return sqrt(pow(b.x() - a.x(), 2) + pow(b.y() - a.y(), 2));
+}
+
+// Necessary for std::find in intersection()
+operator== (Point a, Point b) {
+    return (a.x() == b.x() && a.y() == b.y());
+}
