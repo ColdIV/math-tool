@@ -54,6 +54,38 @@ Token TokenStream::get() {
 			this->currentToken.kind = 'n';
 			this->currentToken.strValue = "";
 			break;
+		case 's':
+		case 'c':
+		case 't':
+			// we're reading a trigonometric function, put first char back
+			this->ip->putback(ch);
+			char c;
+			int inputLen;
+			// read characters until we encounter a space or (
+			// strValue can't be empty, otherwise the overwriting by character won't work
+			this->currentToken.strValue = "placeholder";
+			for (inputLen = 0; (c = this->ip->get()) != '(' && !isspace(c); inputLen++) {
+				this->currentToken.strValue[inputLen] = c;
+			}
+			// cat strValue at the end of the function name
+			this->currentToken.strValue.resize(inputLen);
+
+			if(c == '(') {
+				this->ip->putback('(');
+			} 
+			
+			if((this->currentToken.strValue) == "sin") {
+				this->currentToken.kind = 's';
+			} else if((this->currentToken.strValue) == "cos") {
+				this->currentToken.kind = 'c';
+			} else if((this->currentToken.strValue) == "tan") {
+				this->currentToken.kind = 't';
+			} else{
+				std::cout << "ERROR: not a valid function: " << this->currentToken.strValue << "\n";
+				this->currentToken = {'#', "skip", 0};
+			}
+			
+			break;
 		case 'M': // we have a variable
 		case 'm':
 			// read the subsequent number of the variable into strValue

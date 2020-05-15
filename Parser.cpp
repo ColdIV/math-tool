@@ -109,6 +109,16 @@ double Parser::primary(bool getNeeded) {
 				return memory[varNumber];
 			}
 		}
+		// trigonometric functions:
+		case 's': {
+			return sin(primary(true));
+		}
+		case 'c': {
+			return cos(primary(true));
+		}
+		case 't': {
+			return tan(primary(true));
+		}
 		case '#': { // skip
 			this->setError("");
 			return 0;
