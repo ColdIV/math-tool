@@ -46,6 +46,7 @@ Please make sure the paths are correct!
 
 After you added the libraries, you will have to navigate to the `i686-w64-mingw32/bin/` of both libraries and copy its contents into `MinGW/bin/`.
 (I didn't have to override `zlib1.dll`)
+Copy all .dll files from both `i686-w64-mingw32/bin/` folders into the root folder of the math-tool projekt (where the *.exe file is). You need `SDL2.dll`, `SDL2_ttf.dll`, `zlib1.dll` and `libfreetype-6.dll`. You also need to copy `libgcc_s_dw2-1.dll` and `libstdc++-6.dll` from `MinGW/bin` into the math-tool root folder.
 
 Now you should be able to compile the project by using `mingw32-make` in the root folder of the project.
 (Note: You can create a copy of `mingw32-make` in your `MinGW/bin/` folder and rename it to `make` so that you can use `make` instead)
