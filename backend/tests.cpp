@@ -20,7 +20,7 @@ void test_calculator() {
 	*/
 }
 
-int main() {
-	test_calculator();
-	return 0;
-}
+// int main() {
+// 	test_calculator();
+// 	return 0;
+// }
