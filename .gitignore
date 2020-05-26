@@ -5,3 +5,5 @@ gui/lib/*
 *.exe
 *.bat
 test.cpp
+**/*.o
+**/*.a
