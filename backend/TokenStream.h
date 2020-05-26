@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include "Token.h"
+#include <typeinfo>
 
 class TokenStream {
 private:

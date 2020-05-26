@@ -2,7 +2,8 @@
 #include <SDL_ttf.h>
 #include <string>
 #include <sstream>
-
+#include <iostream>
+#include "debug.h"
 #include "render_text.h"
 
 void render_text(
@@ -10,8 +11,7 @@ void render_text(
 	int fontSize, std::string text
 ){
 	// set font and color
-
-	TTF_Font *font = TTF_OpenFont("arial.ttf", fontSize);
+	TTF_Font *font = TTF_OpenFont("gui/arial.ttf", fontSize);
 	SDL_Color color = {150, 200, 255, 255};
 
 	// helper variables

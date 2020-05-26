@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cassert>
 
-#include "calculator.h"
+#include "Calculator.h"
 
 void test_calculator();
 
