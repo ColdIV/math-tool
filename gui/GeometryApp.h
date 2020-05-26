@@ -2,6 +2,9 @@
 #define _GEOMETRY_H_
 
 #include "App.h"
+#include "Graph.h"
+#include "TextOutput.h"
+#include "GeometryInput.h"
 
 class GeometryApp : public App {
 public:

@@ -1,6 +1,3 @@
-#include "Graph.h"
-#include "TextOutput.h"
-#include "FunctionPlotterInput.h"
 #include "FunctionPlotterApp.h"
 
 FunctionPlotterApp::FunctionPlotterApp(

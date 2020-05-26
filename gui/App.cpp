@@ -19,6 +19,7 @@ App* App::mainloop() {
 			if(event.type == SDL_QUIT) {
 				return nullptr;
 			}
+
 			for (Widget *widget : this->widgets) {
 				App *new_app = widget->handleEvent(event);
 				if (nullptr != new_app) {

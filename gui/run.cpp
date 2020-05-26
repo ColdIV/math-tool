@@ -5,23 +5,22 @@
 #include "MenuApp.h"
 #include "debug.h"
 
-int main() {
+int main(int argv, char** args) {
 	// setup
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 
-	if (SDL_Init(SDL_INIT_VIDEO) == -1){
+	if (SDL_Init(SDL_INIT_VIDEO) == -1) {
 		debug("Error while initializing SDL");
 		exit(1);
 	};
-	if (TTF_Init() == -1){
+	if (TTF_Init() == -1) {
 		debug("Error while initializing TTF");
 		SDL_Quit();
 		exit(1);
 	};
 	SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer);
-	if (window == nullptr)
-	{
+	if (window == nullptr) {
 		debug("Error while initializing screen");
 		TTF_Quit();
 		SDL_Quit();
@@ -32,10 +31,10 @@ int main() {
 
 	// start app
 	App *app = new MenuApp{window, renderer};
-	while(true) {
+	while (true) {
 		App *newApp = app->mainloop();
 		delete app;
-		if(nullptr != newApp) {
+		if (nullptr != newApp) {
 			app = newApp;
 		} else {
 			break;

@@ -4,9 +4,6 @@
 #include "CalculatorApp.h"
 #include "MenuInput.h"
 
-#include <iostream>
-#include <string>
-
 
 MenuInput::MenuInput(
 	SDL_Window *w, SDL_Renderer *r, int x1, int y1,

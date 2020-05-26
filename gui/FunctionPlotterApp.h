@@ -2,6 +2,9 @@
 #define _FUNCTION_PLOTTER_H_
 
 #include "App.h"
+#include "Graph.h"
+#include "TextOutput.h"
+#include "FunctionPlotterInput.h"
 
 class FunctionPlotterApp : public App {
 public:

@@ -1,7 +1,4 @@
 #include "GeometryApp.h"
-#include "Graph.h"
-#include "TextOutput.h"
-#include "GeometryInput.h"
 
 
 GeometryApp::GeometryApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren) {

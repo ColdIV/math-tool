@@ -1,6 +1,8 @@
 #ifndef _MENU_INPUT_H_
 #define _MENU_INPUT_H_
 
+#include <string>
+#include <typeinfo>
 #include "LineInput.h"
 
 class MenuInput : public LineInput{
