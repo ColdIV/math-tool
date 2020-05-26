@@ -1,3 +1,6 @@
 lib/*
+gui/lib/*
 !lib/.gitkeep
+!gui/lib/.gitkeep
 *.exe
+*.bat
