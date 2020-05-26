@@ -16,14 +16,14 @@ class Parser {
 		Error error = {false, ""};
 	public:
 		Parser(TokenStream *tsp);
-		
+
 		double expr(bool getNeeded);
 		double term(bool getNeeded);
 		double power(bool getNeeded);
 		double primary(bool getNeeded);
-		
-		void listMemory();
-		
+
+		std::string getMemory();
+
 		bool getError();
 		std::string getErrorMsg();
 		void setError(std::string msg);
