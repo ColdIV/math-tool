@@ -11,7 +11,7 @@ Parser::Parser(TokenStream *tsp) {
 double Parser::expr(bool getNeeded) {
 	this->clearError();
 	double left = term(getNeeded);
-	
+
 	while(true) {
 		switch((*tsp).current().kind) {
 			case '+':
@@ -26,7 +26,7 @@ double Parser::expr(bool getNeeded) {
 					memoryFull = true;
 				}
 				if(!subExpr) memory[currentMemPos++] = left; // save result to memory
-				
+
 				subExpr = false;
 				return left;
 		}
@@ -35,7 +35,7 @@ double Parser::expr(bool getNeeded) {
 
 double Parser::term(bool getNeeded) {
 	double left = power(getNeeded);
-	
+
 	while(true) {
 		switch((*tsp).current().kind) {
 			case '*':
@@ -58,7 +58,7 @@ double Parser::term(bool getNeeded) {
 
 double Parser::power(bool getNeeded) {
 	double left = primary(getNeeded);
-	
+
 	while(true) {
 		switch((*tsp).current().kind) {
 			case '^':
@@ -74,7 +74,7 @@ double Parser::primary(bool getNeeded) {
 	if(getNeeded) {
 		(*tsp).get();
 	}
-	
+
 	switch((*tsp).current().kind) {
 		case 'n': { // number
 			double value = (*tsp).current().numValue;
@@ -100,9 +100,9 @@ double Parser::primary(bool getNeeded) {
 				return 0;
 			}
 			(*tsp).get(); // get next token
-			
+
 			if((*tsp).current().kind == '=') { // calculate and store
-				double value = expr(true); 
+				double value = expr(true);
 				memory[varNumber] = value;
 				return value;
 			} else { // no assignment, variable is used in expression
@@ -129,12 +129,17 @@ double Parser::primary(bool getNeeded) {
 	}
 }
 
-void Parser::listMemory() {
+std::string Parser::getMemory() {
+	std::ostringstream out;
+
 	int end = this->memoryFull ? MAX_MEMORY : this->currentMemPos;
-	
+
+	// build memory entries and add to output stream, we want nice formatting
 	for(int i = 0; i < end; i++) {
-		std::cout << "[m" << i+1 << "] " << this->memory[i] << "\n";
+		out << "[m" << i+1 << "] " << this->memory[i] << "\n";
 	}
+
+	return out.str();
 }
 
 bool Parser::getError() {
