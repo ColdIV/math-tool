@@ -10,16 +10,14 @@ class Calculator;
 class CalculatorInput : public LineInput{
 private:
 	TextOutput *output;
-	std::stringstream *stream;
 	Calculator *calculator;
 public:
 	CalculatorInput(
 		SDL_Window *w, SDL_Renderer *r, int x1, int y1, int x2, int y2,
-		std::string text, int fontSize, TextOutput *output
+		std::string text, int fontSize, TextOutput *output, Calculator *c
 	);
 
 	virtual App * handleEvent(SDL_Event event);
-	double calculate(std::string text);
 };
 
 #endif
