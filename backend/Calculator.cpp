@@ -12,6 +12,7 @@ void Calculator::calculate(std::string s) {
 	// if ip is a stringstream, we have to dynamically cast it to one, because
 	// it is saved as pointer to the base class (istream)
 	if (typeid(*ip) == typeid(stringstream)){
+		std::cout << "we are here" << std::cout;
 		*(dynamic_cast<stringstream*>(ip)) << s;
 	} else {
 		throw "calculate() can't be called";

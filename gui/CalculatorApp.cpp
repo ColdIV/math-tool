@@ -6,7 +6,7 @@
 CalculatorApp::CalculatorApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren) {
 	// widget for memory
 	TextOutput *memory = new TextOutput{
-		win, ren, 30, 30, 600, 400, currentMemory(), 24
+		win, ren, 30, 30, 600, 400, "", 24
 	};
 
 	// widget for input prompt
@@ -20,13 +20,4 @@ CalculatorApp::CalculatorApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren)
 	widgets.push_back(memory);
 	widgets.push_back(prompt);
 	widgets.push_back(input);
-}
-
-// TODO: we don't need this here, CalculatorInput takes care of it
-std::string CalculatorApp::currentMemory() {
-	// TODO: call calculator and get memory
-	// or if it's not the same instance every time, maybe have a separate memory
-	// as member of Calculator App, that will be passed every time a new
-	// Calculator App instance is made
-	return "[m1] 15.2\n[m2] 122\n[m3] 99";
 }

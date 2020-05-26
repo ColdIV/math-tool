@@ -6,6 +6,17 @@ CalculatorInput::CalculatorInput(
 	std::string text, int fontSize, TextOutput *output
 ) : LineInput(w, r, x1, y1, x2, y2, text, fontSize) {
 	this->output = output;
+
+	this->calculator = new Calculator{this->stream};
+
+	/*
+	std::stringstream stream;
+	Calculator C(&stream);
+	C.calculate("2 + 3");
+	std::cout << C.getMemory() << std::endl;
+	C.calculate("4 / 1.5");
+	std::cout << C.getMemory() << std::endl;
+	*/
 }
 
 App * CalculatorInput::handleEvent(SDL_Event event) {
@@ -15,9 +26,8 @@ App * CalculatorInput::handleEvent(SDL_Event event) {
 	}
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-		// TODO: call math-tool calculate_single, then call math-tool get_current_memory(),
-		// then assign the result of that to this->output
-		this->output->setText("[m1] 15\n[m2] 27.2");
+		this->calculator->calculate(this->text);
+		this->output->setText(this->calculator->getMemory());
 		this->text = "";
 	}
 	return nextApp; // if it's nullptr, we want to stay in the calculator

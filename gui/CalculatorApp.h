@@ -8,7 +8,6 @@
 class CalculatorApp : public App {
 public:
 	CalculatorApp(SDL_Window *window, SDL_Renderer *renderer);
-	std::string currentMemory();
 };
 
 #endif
