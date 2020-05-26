@@ -4,3 +4,4 @@ gui/lib/*
 !gui/lib/.gitkeep
 *.exe
 *.bat
+test.cpp
