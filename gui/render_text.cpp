@@ -29,6 +29,12 @@ void render_text(
 
 	// break at newline and render single line
 	while(getline(ss, textToRender, '\n')) {
+		if (startY >= yEnd) {
+			// reset startY
+			startY = yStart - lineHeight;
+			// clear screen
+			SDL_RenderClear(renderer);
+		}
 		startY += lineHeight;
 		SDL_Surface *textSurface = TTF_RenderText_Solid(
 			font, textToRender.c_str(), color
