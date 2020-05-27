@@ -2,8 +2,8 @@
 
 
 FunctionPlotter::FunctionPlotter() {
-	this->rangeStart = 0;
-	this->rangeEnd = 200;
+	this->rangeStart = -50;
+	this->rangeEnd = 50;
 	this->stepSize = 0.05;
 }
 
@@ -21,8 +21,8 @@ void FunctionPlotter::makeFunction(std::string s) {
 
 	std::cout << "plotting function: " << s << "\n";
 
-	// replace every x with * x
-	s = replaceAll(s, "x", "*x");
+	// replace every x with * x TODO: this does not allow stuff like "sin(x)"
+	//s = replaceAll(s, "x", "*x");
 
 	this->functionObject = nullptr;
 

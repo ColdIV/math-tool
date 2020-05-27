@@ -10,6 +10,13 @@
 class Graph : public Widget{
 private:
 	std::vector<Object*> objects;
+	int xZero;
+	int yZero;
+	int xStart;
+	int xEnd;
+	int yStart;
+	int yEnd;
+	double zoomFactor;
 public:
 	Graph(
 		SDL_Window *window, SDL_Renderer *renderer,
@@ -19,6 +26,9 @@ public:
 	virtual void draw();
 	// TODO: addObject(Object *obj) for the Geometry Objects
 	void setObjects(Object *obj);
+	void setZoomFactor(double newZoom);
+	double calculateX(double x);
+	double calculateY(double y);
 };
 
 #endif
