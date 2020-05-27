@@ -19,7 +19,7 @@ public:
 	Calculator(std::istream *ip);
 	~Calculator();
 
-	void calculate(std::string s);
+	double calculate(std::string s);
 	std::string getMemory();
 };
 
