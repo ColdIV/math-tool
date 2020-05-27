@@ -17,9 +17,7 @@ App * FunctionPlotterInput::handleEvent(SDL_Event event) {
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
 		this->functionPlotter->makeFunction(this->text);
-		// TODO: get function Object from this->functionPlotter->getFunction()
-		// then pass it to this->graph->setObjects
-		// this->graph->setObjects(this->functionPlotter->getFunction());
+		this->graph->setObjects(this->functionPlotter->getFunction());
 		this->text = "";
 	}
 
