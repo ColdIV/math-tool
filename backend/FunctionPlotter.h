@@ -4,20 +4,24 @@
 #include <iostream>
 #include <string>
 
-#include "calculator.h"
+#include "Object.h"
+#include "Point.h"
+#include "Calculator.h"
 
 class FunctionPlotter {
 	private:
+		Object *functionObject;
 		double rangeStart;
 		double rangeEnd;
 		double stepSize;
-		
+
 		std::string replaceAll(std::string s, std::string from, std::string to);
 	public:
 		FunctionPlotter();
 		FunctionPlotter(double rs, double re, double ss);
-		
-		void plot(std::string s);
+
+		void makeFunction(std::string s);
+		Object * getFunction();
 };
 
 #endif
