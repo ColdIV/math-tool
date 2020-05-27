@@ -19,8 +19,6 @@ void FunctionPlotter::makeFunction(std::string s) {
 	// we can instanciate a calculator here, we don't need to save it
 	Calculator C;
 
-	std::cout << "plotting function: " << s << "\n";
-
 	// replace every x with * x TODO: this does not allow stuff like "sin(x)"
 	//s = replaceAll(s, "x", "*x");
 

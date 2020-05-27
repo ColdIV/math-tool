@@ -16,7 +16,7 @@ GeometryApp::GeometryApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren) {
 		win, ren, 320, 450, 600, 500, "", 24, graph
 	};
 
-	widgets.push_back(graph);
-	widgets.push_back(prompt);
-	widgets.push_back(input);
+	this->widgets.push_back(graph);
+	this->widgets.push_back(prompt);
+	this->widgets.push_back(input);
 }

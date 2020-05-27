@@ -21,9 +21,9 @@ CalculatorApp::CalculatorApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren)
 	};
 
 
-	widgets.push_back(memory);
-	widgets.push_back(prompt);
-	widgets.push_back(input);
+	this->widgets.push_back(memory);
+	this->widgets.push_back(prompt);
+	this->widgets.push_back(input);
 }
 
 
