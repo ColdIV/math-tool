@@ -1,6 +1,8 @@
 # math-tool
 math-tool - a school project
 
+**Note**: Although it is public, it is still a school project, so we wont accept any PRs that aren't our own.
+
 # General description
 The tool consists of 3 main parts:
 
