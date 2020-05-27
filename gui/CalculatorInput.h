@@ -5,7 +5,6 @@
 #include "TextOutput.h"
 #include "LineInput.h"
 
-class Calculator;
 
 class CalculatorInput : public LineInput{
 private:
