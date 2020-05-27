@@ -10,7 +10,11 @@
 #include <algorithm>
 #include <float.h>
 
-std::vector <Point> intersection (Object a, Object b);
+std::vector <Point> getIntersections (Object a, Object b);
+
+bool intersects (Line a, Line b);
+
+bool intersects (Line a, Line b, Point &p);
 
 double angle (Line a, Line b);
 
