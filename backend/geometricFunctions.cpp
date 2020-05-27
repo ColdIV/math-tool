@@ -49,7 +49,7 @@ std::vector <Point> intersection (Object a, Object b) {
         
             double determinant = a1 * b2 - a2 * b1; 
         
-            // If determinant is 0, the lines are parallel
+            // If determinant is 0, the lines are parallel, we don't care about that though.
             if (determinant) { 
                 double x = (b2 * c1 - b1 * c2) / determinant;
                 double y = (a1 * c2 - a2 * c1) / determinant;
@@ -61,7 +61,7 @@ std::vector <Point> intersection (Object a, Object b) {
                 double distIA2 = distance(ic, aL.getPoint(2));
                 double distA12 = distance(aL.getPoint(1), aL.getPoint(2));
 
-                if (true ||distIA1 <= distA12 || distIA2 <= distA12) {
+                if (distIA1 + distIA2 == distA12) {
                     // Check for duplicates
                     if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
                         // Add point to intersections
@@ -76,7 +76,25 @@ std::vector <Point> intersection (Object a, Object b) {
 }
 
 double angle (Line a, Line b) {
-    return 90.0;
+    double da, db, dc, dd, cosAngle, deg, mag1, mag2;
+
+    da = a.getPoint(1).x() - a.getPoint(2).x();
+    db = a.getPoint(1).y() - a.getPoint(2).y();
+    dc = b.getPoint(1).x() - b.getPoint(2).x();
+    dd = b.getPoint(1).y() - b.getPoint(2).y();
+
+    // calculate magnitudes
+    mag1 = sqrt(da * da + db * db);
+    mag2 = sqrt(dc * dc + dd * dd);
+
+    // get radiant
+    cosAngle = (da * dc + db * dd) / (mag1 * mag2);
+    deg = acos(cosAngle);
+
+    // get degree from radiant
+    deg = deg * 180.0 / M_PI;
+
+    return deg;
 }
 
 double distance (Point a, Point b) {

@@ -8,6 +8,7 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
+#include <float.h>
 
 std::vector <Point> intersection (Object a, Object b);
 
