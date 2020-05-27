@@ -118,6 +118,6 @@ double distance (Point a, Point b) {
 }
 
 // Necessary for std::find in intersection()
-operator== (Point a, Point b) {
+bool operator== (Point a, Point b) {
     return (a.x() == b.x() && a.y() == b.y());
 }
