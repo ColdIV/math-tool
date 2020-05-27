@@ -3,12 +3,12 @@ ARCHIVE_COMMAND = ar
 
 ARCHIVE=libbackend.a
 SFILES = Calculator.cpp Circle.cpp FunctionPlotter.cpp Line.cpp Object.cpp \
-  Parser.cpp Point.cpp Rectangle.cpp Square.cpp tests.cpp \
-  TokenStream.cpp Triangle.cpp geometricFunctions.cpp
+	Parser.cpp Point.cpp Rectangle.cpp Square.cpp tests.cpp \
+	TokenStream.cpp Triangle.cpp geometricFunctions.cpp
 OFILES = $(SFILES:.cpp=.o)
 HFILES= Calculator.h Circle.h error.h FunctionPlotter.h Line.h Object.h \
-  Parser.h Point.h Rectangle.h Square.h tests.h Token.h TokenStream.h \
-  Triangle.h geometricFunctions.h
+	Parser.h Point.h Rectangle.h Square.h tests.h Token.h TokenStream.h \
+	Triangle.h geometricFunctions.h
 COMPILER_FLAGS = --std=c++14
 
 

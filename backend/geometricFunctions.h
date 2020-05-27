@@ -10,6 +10,10 @@
 #include <algorithm>
 #include <float.h>
 
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
+
 std::vector <Point> getIntersections (Object a, Object b);
 
 bool intersects (Line a, Line b);
