@@ -1,11 +1,27 @@
 #include "Calculator.h"
 
 
+Calculator::Calculator() {
+	std::stringstream *s = new stringstream;
+	this->ip = s;
+	this->ts = new TokenStream(ip);
+	this->parser = new Parser(ts);
+	this->ownsStream = true; // we own the stream and have to delete it
+}
+
 Calculator::Calculator(std::istream *ip) {
 	this->ip = ip;
-	TokenStream *ts = new TokenStream{ip};
-	Parser *ps = new Parser{ts};
-	this->parser = ps;
+	this->ts = new TokenStream{ip};
+	this->parser = new Parser{ts};
+	this->ownsStream = false; // we don't own the stream and can't delete it
+}
+
+Calculator::~Calculator() {
+	if (this->ownsStream) {
+		delete this->ip;
+	}
+	delete this->ts;
+	delete this->parser;
 }
 
 void Calculator::calculate(std::string s) {

@@ -1,14 +1,21 @@
-#ifndef _CALCULATOR_H_
-#define _CALCULATOR_H_
+#ifndef _CALCULATOR_APP_H_
+#define _CALCULATOR_APP_H_
 
 #include <string>
 
+#include "backend/Calculator.h"
 #include "App.h"
 
+
+class Calculator;
+
+
 class CalculatorApp : public App {
+private:
+	Calculator *calculator;
 public:
 	CalculatorApp(SDL_Window *window, SDL_Renderer *renderer);
-	std::string currentMemory();
+	virtual ~CalculatorApp();
 };
 
 #endif

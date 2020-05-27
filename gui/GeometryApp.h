@@ -1,5 +1,5 @@
-#ifndef _GEOMETRY_H_
-#define _GEOMETRY_H_
+#ifndef _GEOMETRY_APP_H_
+#define _GEOMETRY_APP_H_
 
 #include "App.h"
 #include "Graph.h"

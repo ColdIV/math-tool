@@ -17,10 +17,11 @@ void render_text(
 	// helper variables
 	int textW = xEnd - xStart;
 	int textH = yEnd - yStart;
+	int lineHeight = fontSize * 1.4; // determine space between lines
 
 	// starting point of message rectangle
 	int startX = xStart;
-	int startY = yStart - 70;
+	int startY = yStart - lineHeight;
 
 	// text has to be converted to istream in order to call getline
 	std::stringstream ss(text);
@@ -28,7 +29,13 @@ void render_text(
 
 	// break at newline and render single line
 	while(getline(ss, textToRender, '\n')) {
-		startY += 70;
+		if (startY >= yEnd) {
+			// reset startY
+			startY = yStart - lineHeight;
+			// clear screen
+			SDL_RenderClear(renderer);
+		}
+		startY += lineHeight;
 		SDL_Surface *textSurface = TTF_RenderText_Solid(
 			font, textToRender.c_str(), color
 		);
