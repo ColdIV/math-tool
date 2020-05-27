@@ -24,7 +24,7 @@ Calculator::~Calculator() {
 	delete this->parser;
 }
 
-void Calculator::calculate(std::string s) {
+double Calculator::calculate(std::string s) {
 	// if ip is a stringstream, we have to dynamically cast it to one, because
 	// it is saved as pointer to the base class (istream)
 	if (typeid(*ip) == typeid(stringstream)){
@@ -33,7 +33,7 @@ void Calculator::calculate(std::string s) {
 		throw "calculate() can't be called";
 	}
 
-	this->parser->expr(true);
+	return this->parser->expr(true);
 }
 
 std::string Calculator::getMemory() {

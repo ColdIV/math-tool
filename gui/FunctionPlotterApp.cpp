@@ -12,11 +12,18 @@ FunctionPlotterApp::FunctionPlotterApp(
 	};
 
 	// widget for input
+	this->functionPlotter = new FunctionPlotter{};
 	FunctionPlotterInput *input = new FunctionPlotterInput{
-		window, renderer, 320, 450, 600, 500, "", 24, graph
+		window, renderer, 320, 450, 600, 500, "", 24, graph, this->functionPlotter
 	};
 
-	widgets.push_back(graph);
-	widgets.push_back(prompt);
-	widgets.push_back(input);
+	this->widgets.push_back(graph);
+	this->widgets.push_back(prompt);
+	this->widgets.push_back(input);
+}
+
+
+FunctionPlotterApp::~FunctionPlotterApp() {
+	delete this->functionPlotter;
+	// deletion of widgets happens in superclass destructor
 }

@@ -7,9 +7,6 @@
 #include "App.h"
 
 
-class Calculator;
-
-
 class CalculatorApp : public App {
 private:
 	Calculator *calculator;
