@@ -5,15 +5,27 @@ TokenStream::TokenStream(std::istream *ip) {
 	this->currentToken = {'e', "end", 0};
 }
 
+// reset stream in case we encountered an EOF, so that we can fill the
+// stringstream again with a new string and that we can read from it again
+void TokenStream::resetStream() {
+	if (typeid(*ip) == typeid(std::stringstream)){
+		// dynamic_cast needed because ip is stored as pointer to the base class
+		std::stringstream *ssp = dynamic_cast<std::stringstream*>(ip);
+		ssp->str(""); // get rid of the EOF
+		ssp->clear(); // make it readable again
+	}
+}
+
 Token TokenStream::get() {
 	char ch = EOF;
-	
+
 	while((ch = this->ip->get()) != '\n' && isspace(ch));
-	
+
 	switch(ch) {
 		case EOF:
 		case 'q':
 		case 'e': // end the stream with ctrl+d, q or e
+			resetStream();
 			this->currentToken = {'e', "end", 0};
 			break;
 		case ';':
@@ -66,8 +78,8 @@ Token TokenStream::get() {
 
 			if(c == '(') {
 				this->ip->putback('(');
-			} 
-			
+			}
+
 			if((this->currentToken.strValue) == "sin") {
 				this->currentToken.kind = 's';
 			} else if((this->currentToken.strValue) == "cos") {
@@ -78,7 +90,7 @@ Token TokenStream::get() {
 				std::cout << "ERROR: not a valid function: " << this->currentToken.strValue << "\n";
 				this->currentToken = {'#', "skip", 0};
 			}
-			
+
 			break;
 		case 'M': // we have a variable
 		case 'm':
@@ -102,7 +114,7 @@ Token TokenStream::get() {
 			this->currentToken = {'#', "skip", 0};
 			break;
 	}
-	
+
 	return this->currentToken;
 }
 

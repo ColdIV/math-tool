@@ -2,7 +2,9 @@
 #define _TOKENSTREAM_H_
 
 #include <iostream>
+#include <sstream>
 #include "Token.h"
+#include <typeinfo>
 
 class TokenStream {
 private:
@@ -10,8 +12,9 @@ private:
 	Token currentToken;
 public:
 	TokenStream(std::istream *ip);
-	
-	Token get(); 
+
+	void resetStream();
+	Token get();
 	Token current();
 };
 
