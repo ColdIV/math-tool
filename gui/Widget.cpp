@@ -24,7 +24,7 @@ App* Widget::handleEvent(SDL_Event event) {
 
 void Widget::draw() {
 	debug("drawing in superclass");
-	if (DEBUG) {
+	if (DEBUG) { // draw border around widget
 		SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
 		SDL_RenderDrawLine(

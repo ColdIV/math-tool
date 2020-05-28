@@ -52,8 +52,8 @@ void Graph::draw() {
 void Graph::addObject(Object *obj) {
 	debug("adding an object\n\n");
 	this->objects.push_back(obj);
-	int x = obj->getPoints()[0].x();
-	int y = obj->getPoints()[0].y();
+	int x = obj->getPoint(1).x();
+	int y = obj->getPoint(1).y();
 	debug(std::to_string(x));
 	debug(std::to_string(y));
 	debug("\n\n");

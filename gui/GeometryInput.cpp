@@ -1,6 +1,5 @@
 #include "GeometryInput.h"
 
-#include "backend/Object.h"
 
 GeometryInput::GeometryInput(
 	SDL_Window *w, SDL_Renderer *r, int x1, int y1, int x2, int y2,
