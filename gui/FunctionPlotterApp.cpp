@@ -4,7 +4,7 @@ FunctionPlotterApp::FunctionPlotterApp(
 	SDL_Window *window, SDL_Renderer *renderer
 ) : App(window, renderer) {
 	// widget for the graph
-	Graph *graph = new Graph{window, renderer, 30, 30, 600, 400};
+	Graph *graph = new Graph{window, renderer, 30, 30, 600, 400, "functions"};
 
 	// widget for input prompt
 	TextOutput *prompt = new TextOutput{

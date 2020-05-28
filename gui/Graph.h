@@ -12,21 +12,19 @@ private:
 	std::vector<Object*> objects;
 	int xZero;
 	int yZero;
-	int xStart;
-	int xEnd;
-	int yStart;
-	int yEnd;
 	double zoomFactor;
+	std::string mode;
 public:
 	Graph(
 		SDL_Window *window, SDL_Renderer *renderer,
-		int x1, int y1, int x2, int y2
+		int x1, int y1, int x2, int y2, std::string mode
 	);
 
 	virtual void draw();
-	// TODO: addObject(Object *obj) for the Geometry Objects
+
+	void addObject(Object *obj);
 	void setObjects(Object *obj);
-	void setZoomFactor(double newZoom);
+	void setZoomFactor(bool increase);
 	double calculateX(double x);
 	double calculateY(double y);
 };

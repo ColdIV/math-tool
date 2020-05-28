@@ -1,24 +1,14 @@
 #include "Graph.h"
 
-/*
-TODO: the graph class should have a list/vector of all objects to draw and
-2 functions to manage the objects: setObjects (deletes all other objects and
-adds 1) and addObject(adds another object to the list)
-in handleEvent, call either addObject or setObject, depending on whether
-we are in the geometry or functionplotter app.
-*/
 
 Graph::Graph(
 	SDL_Window *window, SDL_Renderer *renderer,
-	int x1, int y1, int x2, int y2
+	int x1, int y1, int x2, int y2, std::string mode
 ) : Widget(window, renderer, x1, y1, x2, y2) {
+	this->mode = mode;
 	this->zoomFactor = 100;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
-	this->xStart = x1;
-	this->xEnd = x2;
-	this->yStart = y1;
-	this->yEnd = y2;
 }
 
 void Graph::draw() {
@@ -36,6 +26,8 @@ void Graph::draw() {
 	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
 	// iterate through all objects
+	// TODO: the following for loop does not apply to circles, check here if
+	// object is a circle and draw accordingly
 	for(Object *obj : this->objects) {
 		std::vector<Point> points = obj->getPoints();
 		// iterate through the points (except the last one)
@@ -51,10 +43,20 @@ void Graph::draw() {
 			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 		}
 		// TODO: if the objects are not functions, we have to draw a line between
-		// the last and the first point as well!
+		// the last and the first point as well: if (mode == "objects")
 	}
 
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+}
+
+void Graph::addObject(Object *obj) {
+	debug("adding an object\n\n");
+	this->objects.push_back(obj);
+	int x = obj->getPoint(1).x();
+	int y = obj->getPoint(1).y();
+	debug(std::to_string(x));
+	debug(std::to_string(y));
+	debug("\n\n");
 }
 
 void Graph::setObjects(Object *obj) {
@@ -63,8 +65,12 @@ void Graph::setObjects(Object *obj) {
 	this->objects.push_back(obj);
 }
 
-void Graph::setZoomFactor(double newZoom) {
-	this->zoomFactor = newZoom;
+void Graph::setZoomFactor(bool increase) {
+	if (increase && this->zoomFactor < 175) { // allow zooming 3 times
+		this->zoomFactor += 25;
+	} else if (!increase && this->zoomFactor > 25){
+		this->zoomFactor -= 25;
+	}
 }
 
 double Graph::calculateX(double x) {

@@ -15,10 +15,10 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 	}
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-		// TODO: pass text to math tool geometry to create an object or
-		// call the object functions
-		// Also, once the Graph Widget has an addFigure function, call it with
-		// the created object.
+		// TODO: call math tool geometry to create an object from this->text
+		// zooming does not have to be allowed here
+		Object *testObject = new Object();
+		this->graph->addObject(testObject);
 		this->text = "";
 	}
 
