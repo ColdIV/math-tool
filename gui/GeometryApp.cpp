@@ -3,7 +3,7 @@
 
 GeometryApp::GeometryApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren) {
 	// widget for coordinate system and objects
-	Graph *graph = new Graph(win, ren, 30, 30, 600, 400);
+	Graph *graph = new Graph(win, ren, 30, 30, 600, 400, "objects");
 
 	// widget for input prompt
 	TextOutput *prompt = new TextOutput{

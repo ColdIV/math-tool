@@ -17,6 +17,7 @@ private:
 	int yStart;
 	int yEnd;
 	double zoomFactor;
+	std::string mode;
 public:
 	Graph(
 		SDL_Window *window, SDL_Renderer *renderer,

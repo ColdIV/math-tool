@@ -3,8 +3,9 @@
 
 Graph::Graph(
 	SDL_Window *window, SDL_Renderer *renderer,
-	int x1, int y1, int x2, int y2
+	int x1, int y1, int x2, int y2, std::string mode
 ) : Widget(window, renderer, x1, y1, x2, y2) {
+	this->mode = mode;
 	this->zoomFactor = 100;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
@@ -31,6 +32,8 @@ void Graph::draw() {
 	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
 	// iterate through all objects
+	// TODO: the following for loop does not apply to circles, check here if
+	// object is a circle and draw accordingly
 	for(Object *obj : this->objects) {
 		std::vector<Point> points = obj->getPoints();
 		// iterate through the points (except the last one)
@@ -46,7 +49,7 @@ void Graph::draw() {
 			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 		}
 		// TODO: if the objects are not functions, we have to draw a line between
-		// the last and the first point as well!
+		// the last and the first point as well: if (mode == "objects")
 	}
 
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
