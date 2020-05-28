@@ -59,10 +59,10 @@ void Graph::setObjects(Object *obj) {
 }
 
 void Graph::setZoomFactor(bool increase) {
-	if (increase) {
-		this->zoomFactor += 100;
-	} else {
-		this->zoomFactor -= 100;
+	if (increase && zoomFactor < 175) { // allow zooming 3 times
+		this->zoomFactor += 25;
+	} else if (!increase && zoomFactor > 25){
+		this->zoomFactor -= 25;
 	}
 }
 
