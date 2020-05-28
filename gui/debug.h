@@ -3,6 +3,7 @@
 
 #include <string>
 
+extern const bool DEBUG;
 
 void debug(std::string message);
 

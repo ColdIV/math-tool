@@ -1,12 +1,5 @@
 #include "Graph.h"
 
-/*
-TODO: the graph class should have a list/vector of all objects to draw and
-2 functions to manage the objects: setObjects (deletes all other objects and
-adds 1) and addObject(adds another object to the list)
-in handleEvent, call either addObject or setObject, depending on whether
-we are in the geometry or functionplotter app.
-*/
 
 Graph::Graph(
 	SDL_Window *window, SDL_Renderer *renderer,
@@ -15,6 +8,8 @@ Graph::Graph(
 	this->zoomFactor = 100;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
+	// TODO: it should be possible to access the following members through
+	// the Widget superclass - why isn't it?
 	this->xStart = x1;
 	this->xEnd = x2;
 	this->yStart = y1;
