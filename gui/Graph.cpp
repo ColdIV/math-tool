@@ -9,12 +9,6 @@ Graph::Graph(
 	this->zoomFactor = 100;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
-	// TODO: it should be possible to access the following members through
-	// the Widget superclass - why isn't it?
-	this->xStart = x1;
-	this->xEnd = x2;
-	this->yStart = y1;
-	this->yEnd = y2;
 }
 
 void Graph::draw() {
@@ -72,9 +66,9 @@ void Graph::setObjects(Object *obj) {
 }
 
 void Graph::setZoomFactor(bool increase) {
-	if (increase && zoomFactor < 175) { // allow zooming 3 times
+	if (increase && this->zoomFactor < 175) { // allow zooming 3 times
 		this->zoomFactor += 25;
-	} else if (!increase && zoomFactor > 25){
+	} else if (!increase && this->zoomFactor > 25){
 		this->zoomFactor -= 25;
 	}
 }

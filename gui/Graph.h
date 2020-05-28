@@ -12,10 +12,6 @@ private:
 	std::vector<Object*> objects;
 	int xZero;
 	int yZero;
-	int xStart;
-	int xEnd;
-	int yStart;
-	int yEnd;
 	double zoomFactor;
 	std::string mode;
 public:
