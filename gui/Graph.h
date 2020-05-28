@@ -21,7 +21,7 @@ private:
 public:
 	Graph(
 		SDL_Window *window, SDL_Renderer *renderer,
-		int x1, int y1, int x2, int y2
+		int x1, int y1, int x2, int y2, std::string mode
 	);
 
 	virtual void draw();
