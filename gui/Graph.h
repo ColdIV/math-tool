@@ -26,7 +26,7 @@ public:
 	virtual void draw();
 	// TODO: addObject(Object *obj) for the Geometry Objects
 	void setObjects(Object *obj);
-	void setZoomFactor(double newZoom);
+	void setZoomFactor(bool increase);
 	double calculateX(double x);
 	double calculateY(double y);
 };

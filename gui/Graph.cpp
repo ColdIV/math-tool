@@ -58,8 +58,12 @@ void Graph::setObjects(Object *obj) {
 	this->objects.push_back(obj);
 }
 
-void Graph::setZoomFactor(double newZoom) {
-	this->zoomFactor = newZoom;
+void Graph::setZoomFactor(bool increase) {
+	if (increase) {
+		this->zoomFactor += 100;
+	} else {
+		this->zoomFactor -= 100;
+	}
 }
 
 double Graph::calculateX(double x) {
