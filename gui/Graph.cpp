@@ -41,11 +41,15 @@ void Graph::draw() {
 			double nextX = calculateX(nextP.x());
 			double nextY = calculateY(nextP.y());
 			// don't draw yet if point is not in range
-			if (this->mode == "functions" && currentX < this->xStart) {
+			if (this->mode == "functions" &&
+				(currentX < this->xStart || currentY > this->yEnd)
+			) {
 				continue;
 			}
 			// stop drawing function when next point would not be in range
-			if (this->mode == "functions" && nextX > this->xEnd) {
+			if (this->mode == "functions" &&
+				(nextX > this->xEnd || nextY < this->yStart)
+			) {
 				break;
 			}
 			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
