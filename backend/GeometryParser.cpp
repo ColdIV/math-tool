@@ -9,13 +9,13 @@ GeometryParser::GeometryParser () {
     this->functionNames = {"angle", "intersection"};
 }
 
-int GeometryParser::identify (std::string s) {
+std::string GeometryParser::identify (std::string s) {
     // check for object
     for (int i = 0; i < this->objectNames.size(); ++i) {
         std::size_t found = s.find(this->objectNames[i]);
 
         if (found != std::string::npos) {
-            return 1;
+            return this->objectNames[i];
         }
     }
 
@@ -24,11 +24,11 @@ int GeometryParser::identify (std::string s) {
         std::size_t found = s.find(this->functionNames[i]);
 
         if (found != std::string::npos) {
-            return 0;
+            return this->functionNames[i];
         }
     }
 
-    return -1;
+    return "";
 }
 
 std::unordered_map <std::string, Object*> GeometryParser::parseToObject (std::string s) {
@@ -77,32 +77,32 @@ std::unordered_map <std::string, Object*> GeometryParser::parseToObject (std::st
         }
 
         // create object and add to map
-        if (objName == "point") {
+        if (objName == "point" || objName == "Point") {
             if (numbers.size() == 2) {
                 Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 1);
                 this->objects["P" + std::to_string(++this->objectNum['P'])] = tmp;
             }
-        } else if (objName == "circle") {
+        } else if (objName == "circle" || objName == "Circle") {
             if (numbers.size() == 3) {
                 Circle *tmp = new Circle(Point (numbers[0], numbers[1]), numbers[3]);
                 this->objects["C" + std::to_string(++this->objectNum['C'])] = tmp;
             }
-        } else if (objName == "line") {
+        } else if (objName == "line" || objName == "Line") {
             if (numbers.size() == 4) {
                 Line *tmp = new Line(Point (numbers[0], numbers[1]), Point (numbers[2], numbers[3]));
                 this->objects["L" + std::to_string(++this->objectNum['L'])] = tmp;
             }
-        } else if (objName == "triangle") {
+        } else if (objName == "triangle" || objName == "Triangle") {
             if (numbers.size() == 6) {
                 Triangle *tmp = new Triangle(Point (numbers[0], numbers[1]), Point (numbers[2], numbers[3]), Point (numbers[4], numbers[5]));
                 this->objects["T" + std::to_string(++this->objectNum['T'])] = tmp;
             }
-        } else if (objName == "square") {
+        } else if (objName == "square" || objName == "Square") {
             if (numbers.size() == 4) {
                 Square *tmp = new Square(Point (numbers[0], numbers[1]), Point (numbers[2], numbers[3]));
                 this->objects["S" + std::to_string(++this->objectNum['S'])] = tmp;
             }
-        } else if (objName == "rectangle") {
+        } else if (objName == "rectangle" || objName == "Rectangle") {
             if (numbers.size() == 8) {
                 Rectangle *tmp = new Rectangle(Point (numbers[0], numbers[1]), Point (numbers[2], numbers[3]), Point (numbers[4], numbers[5]), Point (numbers[6], numbers[7]));
                 this->objects["R" + std::to_string(++this->objectNum['R'])] = tmp;
