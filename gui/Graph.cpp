@@ -40,6 +40,14 @@ void Graph::draw() {
 			double currentY = calculateY(p.y());
 			double nextX = calculateX(nextP.x());
 			double nextY = calculateY(nextP.y());
+			// don't draw yet if point is not in range
+			if (this->mode == "functions" && currentX < this->xStart) {
+				continue;
+			}
+			// stop drawing function when next point would not be in range
+			if (this->mode == "functions" && nextX > this->xEnd) {
+				break;
+			}
 			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 		}
 		// TODO: if the objects are not functions, we have to draw a line between
