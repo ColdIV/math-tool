@@ -22,7 +22,7 @@ class GeometryParser {
     public:
         GeometryParser ();
 
-        // returns 1 for object, 0 for function, -1 for invalid string
+        // returns name of object / function if it's valid
         std::string identify (std::string s);
 
         std::unordered_map <std::string, Object*> parseToObject (std::string s);
