@@ -15,3 +15,18 @@ void Circle::setRadius (double radius) {
 double Circle::getRadius () {
 	return this->radius;
 }
+
+std::string Circle::toString() {
+	std::string s = Object::toString();
+
+	std::stringstream stream;
+	std::string radius;
+
+	stream << std::fixed << std::setprecision(2) << this->getRadius();
+	radius = stream.str();
+	
+
+	s += ", Radius: " + radius;
+
+	return s;
+}
