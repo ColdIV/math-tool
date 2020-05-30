@@ -33,7 +33,7 @@ std::vector <Point> Object::getPoints () {
 	return this->points;
 }
 
-std::string Object::pointsToString () {
+std::string Object::toString () {
 	std::string points = "(";
 	std::string suffix = ", ";
 

@@ -16,8 +16,6 @@ class Object {
 		Object ();
 		
 		Object (Point point);
-
-		virtual void makeVirtual () {}
 		
 		void setPoint (int n, Point point);
 
@@ -29,7 +27,7 @@ class Object {
 		
 		std::vector <Point> getPoints ();
 
-		std::string pointsToString ();
+		virtual std::string toString ();
 };
 
 #endif

@@ -14,6 +14,8 @@ class Circle : virtual public Object {
 		void setRadius (double radius);
 		
 		double getRadius ();
+
+		std::string toString();
 };
 
 #endif
