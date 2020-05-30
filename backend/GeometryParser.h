@@ -10,6 +10,7 @@
 #include "Rectangle.h"
 #include <unordered_map>
 #include <string>
+#include <algorithm>
 
 class GeometryParser {
     private:
@@ -18,6 +19,7 @@ class GeometryParser {
 
         std::vector <std::string> objectNames;
         std::vector <std::string> functionNames;
+        std::unordered_map <std::string, std::string> nameTranslations;
 
     public:
         GeometryParser ();
