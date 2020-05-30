@@ -31,7 +31,7 @@ std::string GeometryParser::identify (std::string s) {
     return "";
 }
 
-std::unordered_map <std::string, Object*> GeometryParser::parseToObject (std::string s) {
+std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::string s) {
     std::string objName = "";
     int objParams = 0;
 
@@ -112,4 +112,20 @@ std::unordered_map <std::string, Object*> GeometryParser::parseToObject (std::st
 
     // return map of objects
     return this->objects;
+}
+
+std::vector <Object*> GeometryParser::parseParameters (std::string s) {
+    std::vector <Object*> vec (0);
+
+    for (auto p : this->objects) {
+        size_t pos = s.find(p.first);
+        if (pos != std::string::npos) {
+            vec.push_back(p.second);
+        }
+    }
+
+    // if only one object in vector, duplicate it
+    if (vec.size() == 1) vec.push_back(vec[0]);
+
+    return vec;
 }

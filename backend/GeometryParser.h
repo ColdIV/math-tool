@@ -25,7 +25,9 @@ class GeometryParser {
         // returns name of object / function if it's valid
         std::string identify (std::string s);
 
-        std::unordered_map <std::string, Object*> parseToObject (std::string s);
+        std::unordered_map <std::string, Object*> parseObject (std::string s);
+
+        std::vector <Object*> parseParameters (std::string s);
 
 };
 
