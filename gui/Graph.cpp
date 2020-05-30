@@ -42,13 +42,15 @@ void Graph::draw() {
 			double nextY = calculateY(nextP.y());
 			// don't draw yet if point is not in range
 			if (this->mode == "functions" &&
-				(currentX < this->xStart || currentY > this->yEnd)
+				(currentX < this->xStart || currentY < this->yStart ||
+					nextY < this->yStart || currentY > this->yEnd || nextY > this->yEnd
+				)
 			) {
 				continue;
 			}
 			// stop drawing function when next point would not be in range
 			if (this->mode == "functions" &&
-				(nextX > this->xEnd || nextY < this->yStart)
+				(nextX > this->xEnd)
 			) {
 				break;
 			}
