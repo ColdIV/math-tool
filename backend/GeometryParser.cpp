@@ -2,10 +2,7 @@
 #include <iostream>
 
 GeometryParser::GeometryParser () {
-    this->objectNames = std::vector <std::string> (6);
     this->objectNames = {"point", "circle", "line", "triangle", "square", "rectangle"};
-
-    this->functionNames = std::vector <std::string> (2);
     this->functionNames = {"angle", "intersection"};
 }
 
