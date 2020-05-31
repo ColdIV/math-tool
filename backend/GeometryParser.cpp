@@ -78,12 +78,13 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         for (int i = objParams; i < s.length(); ++i) {
             if (isdigit(s[i])) {
                 // found number
-                if (s[i] - 1 == '-') {
+                if (s[i - 1] == '-') {
                     sign = -1;
                 }
 
                 double tmpNumber = std::stod(s.substr(i));
                 tmpNumber *= sign;
+                sign = 1;
                 numbers.push_back(tmpNumber);
 
                 size_t cPos = s.substr(i).find(",");
