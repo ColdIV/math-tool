@@ -2,6 +2,9 @@
 #define _OBJECT_H_
 
 #include <vector>
+#include <string>
+#include <iomanip>
+#include <sstream>
 #include "Point.h"
 
 class Object {
@@ -23,6 +26,8 @@ class Object {
 		Point getPoint (int n);
 		
 		std::vector <Point> getPoints ();
+
+		virtual std::string toString ();
 };
 
 #endif

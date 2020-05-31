@@ -3,7 +3,7 @@
 
 #include "Object.h"
 
-class Circle : public Object {
+class Circle : virtual public Object {
 	private:
 		double radius;
 	public:
@@ -14,6 +14,8 @@ class Circle : public Object {
 		void setRadius (double radius);
 		
 		double getRadius ();
+
+		std::string toString();
 };
 
 #endif
