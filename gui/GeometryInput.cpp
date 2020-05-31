@@ -1,11 +1,11 @@
 #include "GeometryInput.h"
 
-
 GeometryInput::GeometryInput(
 	SDL_Window *w, SDL_Renderer *r, int x1, int y1, int x2, int y2,
-	std::string text, int fontSize, Graph *graph
+	std::string text, int fontSize, Graph *graph, GeometryParser *parser
 ) : LineInput(w, r, x1, y1, x2, y2, text, fontSize) {
 	this->graph = graph;
+	this->parser = parser;
 }
 
 App * GeometryInput::handleEvent(SDL_Event event) {
@@ -15,10 +15,18 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 	}
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-		// TODO: call math tool geometry to create an object from this->text
-		// zooming does not have to be allowed here
-		Object *testObject = new Object();
-		this->graph->addObject(testObject);
+		std::string inputType = this->parser->identify(this->text);
+		if (inputType == "") {
+			this->text = "";
+		} else if (inputType == "angle" || inputType == "intersection") {
+			// TODO: call geometricFunctions
+		} else { // must be an object
+			std::unordered_map <std::string, Object*> allObjects;
+			allObjects = this->parser->parseObject(this->text);
+			for(auto element : allObjects) {
+				this->graph->addObject(element.second);
+			}
+		}
 		this->text = "";
 	}
 

@@ -1,6 +1,5 @@
 #include "Graph.h"
 
-
 Graph::Graph(
 	SDL_Window *window, SDL_Renderer *renderer,
 	int x1, int y1, int x2, int y2, std::string mode
@@ -18,11 +17,13 @@ void Graph::draw() {
 
 	if (this->mode == "functions") {
 		drawFunction();
+	} else { // mode must be "objects"
+		for(Object *obj : this->objects) {
+			// loop through objects: if it's a polygon, we connect the points
+			// like in drawFunction but after that, connect the first and last
+			// point. if it's a circle, call a different function
+		}
 	}
-	// if mode == object, loop through objects:
-	// if it's a polygon, we connect the points like in drawFunction but after
-	// that, connect the first and last point
-	// if it's a circle, call a different function
 
 
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
