@@ -28,6 +28,7 @@ public:
 	void drawFunction();
 	void drawPolygon(Object *obj);
 	void drawCircle(Circle *circle);
+	void connectPoints(Object *obj);
 
 	void addObject(Object *obj);
 	void setObjects(Object *obj);

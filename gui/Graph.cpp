@@ -50,51 +50,17 @@ void Graph::drawFunction() {
 
 	// iterate through all objects
 	for(Object *obj : this->objects) {
-		std::vector<Point> points = obj->getPoints();
-		// iterate through the points (except the last one)
-		for(int i = 0; i < points.size() - 1; i++) {
-			Point p = points[i];
-			Point nextP = points[i+1];
-			// draw line between current point and next point (x and y values
-			// have to be adjusted to the zero point of the coordinate system)
-			double currentX = calculateX(p.x());
-			double currentY = calculateY(p.y());
-			double nextX = calculateX(nextP.x());
-			double nextY = calculateY(nextP.y());
-
-			// don't draw function yet if point is not in range
-			if (this->mode == "functions" &&
-				(currentX < this->xStart || currentY < this->yStart ||
-					nextY < this->yStart || currentY > this->yEnd || nextY > this->yEnd
-				)
-			) {
-				continue;
-			}
-			// stop drawing function when next point would not be in range
-			if (this->mode == "functions" &&
-				(nextX > this->xEnd)
-			) {
-				break;
-			}
-			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
-		}
+		connectPoints(obj);
 	}
 }
 
 void Graph::drawPolygon(Object *obj) {
 	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
-	std::vector<Point> points = obj->getPoints();
-	for(int i = 0; i < points.size(); i++) {
-		Point p = points[i];
-		Point nextP = points[i+1];
-		double currentX = calculateX(p.x());
-		double currentY = calculateY(p.y());
-		double nextX = calculateX(nextP.x());
-		double nextY = calculateY(nextP.y());
-		SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
-	}
+	connectPoints(obj);
+
 	// connect the first and last point
+	std::vector<Point> points = obj->getPoints();
 	double firstX = points[0].x();
 	double firstY = points[0].y();
 	double lastX = points[points.size() - 1].x();
@@ -138,6 +104,37 @@ void Graph::drawCircle(Circle *circle) {
 			tx += 2;
 			error += (tx - diameter);
 		}
+	}
+}
+
+void Graph::connectPoints(Object *obj) {
+	std::vector<Point> points = obj->getPoints();
+	// iterate through the points (except the last one)
+	for(int i = 0; i < points.size() - 1; i++) {
+		Point p = points[i];
+		Point nextP = points[i+1];
+		// draw line between current point and next point (x and y values
+		// have to be adjusted to the zero point of the coordinate system)
+		double currentX = calculateX(p.x());
+		double currentY = calculateY(p.y());
+		double nextX = calculateX(nextP.x());
+		double nextY = calculateY(nextP.y());
+
+		// don't draw function yet if point is not in range
+		if (this->mode == "functions" &&
+			(currentX < this->xStart || currentY < this->yStart ||
+				nextY < this->yStart || currentY > this->yEnd || nextY > this->yEnd
+			)
+		) {
+			continue;
+		}
+		// stop drawing function when next point would not be in range
+		if (this->mode == "functions" &&
+			(nextX > this->xEnd)
+		) {
+			break;
+		}
+		SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 	}
 }
 
