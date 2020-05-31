@@ -14,6 +14,21 @@ Graph::Graph(
 void Graph::draw() {
 	Widget::draw();
 
+	drawCoordinateSystem();
+
+	if (this->mode == "functions") {
+		drawFunction();
+	}
+	// if mode == object, loop through objects:
+	// if it's a polygon, we connect the points like in drawFunction but after
+	// that, connect the first and last point
+	// if it's a circle, call a different function
+
+
+	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
+}
+
+void Graph::drawCoordinateSystem() {
 	SDL_SetRenderDrawColor(this->renderer, 255, 100, 100, 255);
 	// draw x axis
 	SDL_RenderDrawLine(
@@ -23,11 +38,12 @@ void Graph::draw() {
 	SDL_RenderDrawLine(
 		this->renderer, this->xZero, this->yStart, this->xZero, this->yEnd
 	);
+}
+
+void Graph::drawFunction() {
 	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
 	// iterate through all objects
-	// TODO: the following for loop does not apply to circles, check here if
-	// object is a circle and draw accordingly
 	for(Object *obj : this->objects) {
 		std::vector<Point> points = obj->getPoints();
 		// iterate through the points (except the last one)
@@ -40,7 +56,8 @@ void Graph::draw() {
 			double currentY = calculateY(p.y());
 			double nextX = calculateX(nextP.x());
 			double nextY = calculateY(nextP.y());
-			// don't draw yet if point is not in range
+
+			// don't draw function yet if point is not in range
 			if (this->mode == "functions" &&
 				(currentX < this->xStart || currentY < this->yStart ||
 					nextY < this->yStart || currentY > this->yEnd || nextY > this->yEnd
@@ -56,21 +73,11 @@ void Graph::draw() {
 			}
 			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 		}
-		// TODO: if the objects are not functions, we have to draw a line between
-		// the last and the first point as well: if (mode == "objects")
 	}
-
-	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
 }
 
 void Graph::addObject(Object *obj) {
-	debug("adding an object\n\n");
 	this->objects.push_back(obj);
-	int x = obj->getPoint(1).x();
-	int y = obj->getPoint(1).y();
-	debug(std::to_string(x));
-	debug(std::to_string(y));
-	debug("\n\n");
 }
 
 void Graph::setObjects(Object *obj) {

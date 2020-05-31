@@ -22,6 +22,9 @@ public:
 
 	virtual void draw();
 
+	void drawCoordinateSystem();
+	void drawFunction();
+
 	void addObject(Object *obj);
 	void setObjects(Object *obj);
 	void setZoomFactor(bool increase);
