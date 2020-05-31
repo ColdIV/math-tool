@@ -17,23 +17,28 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 	}
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-		std::string inputType = this->parser->identify(this->text);
-		if (inputType == "") {
-			this->text = "";
-		} else if (inputType == "angle" || inputType == "intersection") {
-			// TODO: call geometricFunctions
-		} else { // must be an object
-			std::unordered_map <std::string, Object*> allObjects;
-			allObjects = this->parser->parseObject(this->text);
-			std::string createdObjs = "Angelegte Objekte: ";
-			for(auto element : allObjects) {
-				// add object to graph to be drawn
-				this->graph->addObject(element.second);
-				// add object and name to textoutput to be displayed
-				createdObjs += element.first;
-				createdObjs += " ";
-				createdObjs += element.second->toString();
-				createdObjs += "\n";
+		if (this->text == "+") {
+			this->graph->changeZoomLevel(true);
+		} else if (this->text == "-") {
+			this->graph->changeZoomLevel(false);
+		} else {
+			std::string inputType = this->parser->identify(this->text);
+			if (inputType == "") {
+				this->text = "";
+			} else if (inputType == "angle" || inputType == "intersection") {
+				// TODO: call geometricFunctions
+			} else { // must be an object
+				std::unordered_map <std::string, Object*> allObjects;
+				allObjects = this->parser->parseObject(this->text);
+				for(auto element : allObjects) {
+					// add object to graph to be drawn
+					this->graph->addObject(element.second);
+					// add object and name to textoutput to be displayed
+					createdObjs += element.first;
+					createdObjs += " ";
+					createdObjs += element.second->toString();
+					createdObjs += "\n";
+				}
 			}
 			this->createdObjects->setText(createdObjs);
 		}

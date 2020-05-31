@@ -121,18 +121,14 @@ void Graph::connectPoints(Object *obj) {
 		double nextX = calculateX(nextP.x());
 		double nextY = calculateY(nextP.y());
 
-		// don't draw function yet if point is not in range
-		if (this->mode == "functions" &&
-			(currentX < this->xStart || currentY < this->yStart ||
+		// don't draw yet if point is not in range
+		if (currentX < this->xStart || currentY < this->yStart ||
 				nextY < this->yStart || currentY > this->yEnd || nextY > this->yEnd
-			)
 		) {
 			continue;
 		}
-		// stop drawing function when next point would not be in range
-		if (this->mode == "functions" &&
-			(nextX > this->xEnd)
-		) {
+		// stop drawing when next point would not be in range
+		if (nextX > this->xEnd){
 			break;
 		}
 		SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
