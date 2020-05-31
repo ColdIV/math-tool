@@ -6,7 +6,8 @@ Graph::Graph(
 	int x1, int y1, int x2, int y2, std::string mode
 ) : Widget(window, renderer, x1, y1, x2, y2) {
 	this->mode = mode;
-	this->zoomFactor = 10;
+	this->defaultZoomLevel = 10;
+	this->currentZoomLevel = 10;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
 }
@@ -148,18 +149,18 @@ void Graph::setObjects(Object *obj) {
 	this->objects.push_back(obj);
 }
 
-void Graph::setZoomFactor(bool increase) {
-	if (increase && this->zoomFactor < 150) { // allow zooming 3 times
-		this->zoomFactor += 25;
-	} else if (!increase && this->zoomFactor > 50){
-		this->zoomFactor -= 25;
+void Graph::changeZoomLevel(bool increase) {
+	if (increase && this->currentZoomLevel < (this->defaultZoomLevel * 3)) {
+		this->currentZoomLevel += 25;
+	} else if (!increase && this->currentZoomLevel > (this->defaultZoomLevel / 3)){
+		this->currentZoomLevel -= 25;
 	}
 }
 
 double Graph::calculateX(double x) {
-	return this->xZero + x * this->zoomFactor;
+	return this->xZero + x * this->currentZoomLevel;
 }
 
 double Graph::calculateY(double y) {
-	return yZero - y * this->zoomFactor;
+	return yZero - y * this->currentZoomLevel;
 }

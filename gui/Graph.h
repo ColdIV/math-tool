@@ -14,7 +14,8 @@ private:
 	std::vector<Object*> objects;
 	int xZero;
 	int yZero;
-	double zoomFactor;
+	double defaultZoomLevel;
+	double currentZoomLevel;
 	std::string mode;
 public:
 	Graph(
@@ -32,7 +33,7 @@ public:
 
 	void addObject(Object *obj);
 	void setObjects(Object *obj);
-	void setZoomFactor(bool increase);
+	void changeZoomLevel(bool increase);
 	double calculateX(double x);
 	double calculateY(double y);
 };
