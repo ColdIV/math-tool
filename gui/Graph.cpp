@@ -1,5 +1,6 @@
 #include "Graph.h"
 
+
 Graph::Graph(
 	SDL_Window *window, SDL_Renderer *renderer,
 	int x1, int y1, int x2, int y2, std::string mode
@@ -20,7 +21,8 @@ void Graph::draw() {
 	} else { // mode must be "objects"
 		for(Object *obj : this->objects) {
 			if(typeid(*obj) == typeid(Circle)) {
-				// TODO: call a function to draw circles
+				Circle *c = dynamic_cast<Circle *>(obj);
+				drawCircle(c);
 			} else { // must be a polygon
 				drawPolygon(obj);
 			}
@@ -100,6 +102,43 @@ void Graph::drawPolygon(Object *obj) {
 	SDL_RenderDrawLine(this->renderer, calculateX(firstX), calculateY(firstY),
 		calculateX(lastX), calculateY(lastY)
 	);
+}
+
+void Graph::drawCircle(Circle *circle) {
+	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+
+	double centerX = calculateX(circle->getPoint().x());
+	double centerY = calculateY(circle->getPoint().y());
+	double diameter = circle->getRadius() * 2;
+	double x = circle->getRadius() - 1;
+	double y = 0;
+	double tx = 1;
+	double ty = 1;
+	double error = tx - diameter;
+
+	while(x >= y) {
+		// draw an octant of the circle each time
+		SDL_RenderDrawPoint(this->renderer, centerX + x, centerY - y);
+		SDL_RenderDrawPoint(this->renderer, centerX + x, centerY + y);
+		SDL_RenderDrawPoint(this->renderer, centerX - x, centerY - y);
+		SDL_RenderDrawPoint(this->renderer, centerX - x, centerY + y);
+		SDL_RenderDrawPoint(this->renderer, centerX + y, centerY - x);
+		SDL_RenderDrawPoint(this->renderer, centerX + y, centerY + x);
+		SDL_RenderDrawPoint(this->renderer, centerX - y, centerY - x);
+		SDL_RenderDrawPoint(this->renderer, centerX - y, centerY + x);
+
+		if (error <= 0) {
+			++y;
+			error += ty;
+			ty += 2;
+		}
+
+		if (error > 0) {
+			--x;
+			tx += 2;
+			error += (tx - diameter);
+		}
+	}
 }
 
 void Graph::addObject(Object *obj) {

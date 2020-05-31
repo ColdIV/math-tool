@@ -27,6 +27,7 @@ public:
 	void drawCoordinateSystem();
 	void drawFunction();
 	void drawPolygon(Object *obj);
+	void drawCircle(Circle *circle);
 
 	void addObject(Object *obj);
 	void setObjects(Object *obj);
