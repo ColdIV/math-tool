@@ -2,8 +2,8 @@
 
 
 FunctionPlotter::FunctionPlotter() {
-	this->rangeStart = -50;
-	this->rangeEnd = 50;
+	this->rangeStart = -100;
+	this->rangeEnd = 100;
 	this->stepSize = 0.05;
 }
 
