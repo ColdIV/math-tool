@@ -151,9 +151,9 @@ void Graph::setObjects(Object *obj) {
 
 void Graph::changeZoomLevel(bool increase) {
 	if (increase && this->currentZoomLevel < (this->defaultZoomLevel * 3)) {
-		this->currentZoomLevel += 25;
-	} else if (!increase && this->currentZoomLevel > (this->defaultZoomLevel / 3)){
-		this->currentZoomLevel -= 25;
+		this->currentZoomLevel += 5;
+	} else if (!increase && this->currentZoomLevel > (this->defaultZoomLevel / 2)){
+		this->currentZoomLevel -= 5;
 	}
 }
 
