@@ -2,8 +2,10 @@
 #define _GRAPH_H_
 
 #include <vector>
+#include <typeinfo>
 #include "backend/Object.h"
 #include "backend/Point.h"
+#include "backend/Circle.h"
 #include "Widget.h"
 #include "debug.h"
 
@@ -12,7 +14,8 @@ private:
 	std::vector<Object*> objects;
 	int xZero;
 	int yZero;
-	double zoomFactor;
+	double defaultZoomLevel;
+	double currentZoomLevel;
 	std::string mode;
 public:
 	Graph(
@@ -22,9 +25,15 @@ public:
 
 	virtual void draw();
 
+	void drawCoordinateSystem();
+	void drawFunction();
+	void drawPolygon(Object *obj);
+	void drawCircle(Circle *circle);
+	void connectPoints(Object *obj);
+
 	void addObject(Object *obj);
 	void setObjects(Object *obj);
-	void setZoomFactor(bool increase);
+	void changeZoomLevel(bool increase);
 	double calculateX(double x);
 	double calculateY(double y);
 };

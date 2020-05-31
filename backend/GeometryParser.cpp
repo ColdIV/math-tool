@@ -4,7 +4,7 @@
 GeometryParser::GeometryParser () {
     this->objectNames = {"point", "circle", "line", "triangle", "square", "rectangle", "punkt", "kreis", "linie", "dreieck", "quadrat", "rechteck"};
     this->functionNames = {"angle", "intersection", "winkel", "schnittpunkt"};
-    
+
     // add translations
     // objects
     this->nameTranslations["point"] = "point";
@@ -74,7 +74,7 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         // find all numbers
         int sign = 1;
         std::vector <double> numbers (0);
-        
+
         for (int i = objParams; i < s.length(); ++i) {
             if (isdigit(s[i])) {
                 // found number
@@ -103,7 +103,7 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         // create object and add to map
         if (objName == "point") {
             if (numbers.size() == 2) {
-                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 1);
+                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 3);
                 this->objects["P" + std::to_string(++this->objectNum['P'])] = tmp;
             }
         } else if (objName == "circle") {

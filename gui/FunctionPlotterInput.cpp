@@ -17,9 +17,9 @@ App * FunctionPlotterInput::handleEvent(SDL_Event event) {
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
 		if (this->text == "+") {
-			this->graph->setZoomFactor(true);
+			this->graph->changeZoomLevel(true);
 		} else if (this->text == "-") {
-			this->graph->setZoomFactor(false);
+			this->graph->changeZoomLevel(false);
 		} else {
 			this->functionPlotter->makeFunction(this->text);
 			this->graph->setObjects(this->functionPlotter->getFunction());
