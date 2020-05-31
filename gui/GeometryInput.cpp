@@ -30,6 +30,7 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 			} else { // must be an object
 				std::unordered_map <std::string, Object*> allObjects;
 				allObjects = this->parser->parseObject(this->text);
+				std::string createdObjs = "Angelegte Objekte: ";
 				for(auto element : allObjects) {
 					// add object to graph to be drawn
 					this->graph->addObject(element.second);
@@ -39,8 +40,8 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 					createdObjs += element.second->toString();
 					createdObjs += "\n";
 				}
+				this->createdObjects->setText(createdObjs);
 			}
-			this->createdObjects->setText(createdObjs);
 		}
 		this->text = "";
 	}
