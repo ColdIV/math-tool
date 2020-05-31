@@ -107,7 +107,7 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
             }
         } else if (objName == "circle") {
             if (numbers.size() == 3) {
-                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), numbers[3]);
+                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), numbers[2]);
                 this->objects["C" + std::to_string(++this->objectNum['C'])] = tmp;
             }
         } else if (objName == "line") {
