@@ -2,8 +2,10 @@
 #define _GRAPH_H_
 
 #include <vector>
+#include <typeinfo>
 #include "backend/Object.h"
 #include "backend/Point.h"
+#include "backend/Circle.h"
 #include "Widget.h"
 #include "debug.h"
 
@@ -24,6 +26,7 @@ public:
 
 	void drawCoordinateSystem();
 	void drawFunction();
+	void drawPolygon(Object *obj);
 
 	void addObject(Object *obj);
 	void setObjects(Object *obj);

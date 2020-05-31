@@ -5,7 +5,7 @@ Graph::Graph(
 	int x1, int y1, int x2, int y2, std::string mode
 ) : Widget(window, renderer, x1, y1, x2, y2) {
 	this->mode = mode;
-	this->zoomFactor = 100;
+	this->zoomFactor = 10;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
 }
@@ -19,9 +19,11 @@ void Graph::draw() {
 		drawFunction();
 	} else { // mode must be "objects"
 		for(Object *obj : this->objects) {
-			// loop through objects: if it's a polygon, we connect the points
-			// like in drawFunction but after that, connect the first and last
-			// point. if it's a circle, call a different function
+			if(typeid(*obj) == typeid(Circle)) {
+				// TODO: call a function to draw circles
+			} else { // must be a polygon
+				drawPolygon(obj);
+			}
 		}
 	}
 
@@ -75,6 +77,29 @@ void Graph::drawFunction() {
 			SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 		}
 	}
+}
+
+void Graph::drawPolygon(Object *obj) {
+	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+
+	std::vector<Point> points = obj->getPoints();
+	for(int i = 0; i < points.size(); i++) {
+		Point p = points[i];
+		Point nextP = points[i+1];
+		double currentX = calculateX(p.x());
+		double currentY = calculateY(p.y());
+		double nextX = calculateX(nextP.x());
+		double nextY = calculateY(nextP.y());
+		SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
+	}
+	// connect the first and last point
+	double firstX = points[0].x();
+	double firstY = points[0].y();
+	double lastX = points[points.size() - 1].x();
+	double lastY = points[points.size() - 1].y();
+	SDL_RenderDrawLine(this->renderer, calculateX(firstX), calculateY(firstY),
+		calculateX(lastX), calculateY(lastY)
+	);
 }
 
 void Graph::addObject(Object *obj) {
