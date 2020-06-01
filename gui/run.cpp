@@ -28,6 +28,10 @@ void run() {
 	App *app = new MenuApp{window, renderer};
 	while (true) {
 		App *newApp = app->mainloop();
+		// if the new app is a menu again, we quit the program
+		if (typeid(*newApp) == typeid(*app) && typeid(*newApp) == typeid(MenuApp)) {
+			break;
+		}
 		delete app;
 		if (nullptr != newApp) {
 			app = newApp;
