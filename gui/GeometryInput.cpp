@@ -30,6 +30,8 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 			} else if (inputType == "angle" || inputType == "intersection") {
 				if (inputType == "angle") {
 					displayAngle();
+				} else {
+					displayIntersections();
 				}
 			} else { // must be an object
 				std::unordered_map <std::string, Object*> allObjects;
@@ -65,4 +67,25 @@ void GeometryInput::displayAngle() {
 	resultString += std::to_string(result);
 	resultString += "\n";
 	this->funcResults->setText(resultString);
+}
+
+void GeometryInput::displayIntersections() {
+	std::vector<Object *> params; // we need to objects to calculate intersection
+	params = this->parser->parseParameters(this->text);
+	std::vector<Point> intersections; // the resulting intersections
+	intersections = getIntersections(*(params[0]), *(params[1]));
+	// add Intersections to the objects to be drawn
+	// TODO: maybe add it to a different vector, so that they can be drawn differently
+	// from regular objects (e.g. filled)
+	// display string representation of the intersections on screen
+	std::string resultString = this->funcResults->getText();
+	resultString += this->text;
+	for (Point p : intersections) {
+		resultString += ": (";
+		resultString += std::to_string(p.x());
+		resultString += "/";
+		resultString += std::to_string(p.y());
+		resultString += "),\n";
+		this->funcResults->setText(resultString);
+	}
 }
