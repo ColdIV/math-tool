@@ -50,7 +50,7 @@ Im Hauptmenü hat man eine Auswahl zwischen den unterschiedlichen Funktionen.
     - Der Funktionsplotter erwartet eine Funktion als Eingabe oder `+` / `-` um den Zoom-Faktor zu ändern.
         - Eine mögliche Eingabe wäre z.B.: `sin(x)`, immer schön anzusehen!
 - 3) Taschenrechner
-    - Der Taschenrechner kann gibt Ergebnisse mit `[mx] <ergebnis>` aus, wobei `[mx]` für den Memory-Slot steht den das Ergebnis einnimmt. Man kann auf den entsprechenden Wert zugreifen indem man `mx` in eine Rechnung einbaut.
+    - Der Taschenrechner gibt Ergebnisse mit `[mx] <ergebnis>` aus, wobei `[mx]` für den Memory-Slot steht den das Ergebnis einnimmt. Man kann auf den entsprechenden Wert zugreifen indem man `mx` in eine Rechnung einbaut.
 
         - Beispiel:
             ```
