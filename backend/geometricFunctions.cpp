@@ -200,7 +200,7 @@ std::vector <Point> getIntersections (Object *a, Object *b) {
         for (Line bL : bLines) {
             Point ic = Point();
 
-            if (intersects(aL, bL, ic)) {
+            if (intersects(aL, bL, ic) && isPointInLine(aL, ic) && isPointInLine(bL, ic)) {
                 // Check for duplicates
                 if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
                     // Add point to intersections
