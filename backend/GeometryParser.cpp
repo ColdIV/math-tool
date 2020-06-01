@@ -34,7 +34,7 @@ std::string GeometryParser::identify (std::string s) {
     for (int i = 0; i < this->functionNames.size(); ++i) {
         std::size_t found = s.find(this->functionNames[i]);
 
-        if (found != std::string::npos) {
+        if (found != std::string::npos && found == 0) {
             return this->nameTranslations[this->functionNames[i]];
         }
     }
@@ -43,7 +43,7 @@ std::string GeometryParser::identify (std::string s) {
     for (int i = 0; i < this->objectNames.size(); ++i) {
         std::size_t found = s.find(this->objectNames[i]);
 
-        if (found != std::string::npos) {
+        if (found != std::string::npos && found == 0) {
             return this->nameTranslations[this->objectNames[i]];
         }
     }
