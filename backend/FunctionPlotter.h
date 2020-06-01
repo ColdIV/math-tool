@@ -15,6 +15,7 @@ class FunctionPlotter {
 		double rangeEnd;
 		double stepSize;
 
+		std::string normalizeInput(std::string s);
 		std::string replaceAll(std::string s, std::string from, std::string to);
 	public:
 		FunctionPlotter();
