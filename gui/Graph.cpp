@@ -7,7 +7,7 @@ Graph::Graph(
 ) : Widget(window, renderer, x1, y1, x2, y2) {
 	this->mode = mode;
 	this->defaultZoomLevel = 10;
-	this->currentZoomLevel = 10;
+	this->currentZoomLevel = 5;
 	this->xZero= (x1 + x2) / 2;
 	this->yZero = (y1 + y2) / 2;
 }
