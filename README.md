@@ -1,35 +1,29 @@
 # math-tool
-math-tool - a school project
 
-**Note**: Although it is public, it is still a school project, so we wont accept any PRs that aren't our own.
+## Anleitung
 
-# General description
-The tool consists of 3 main parts:
+### Abhängigkeiten
+- `g++ (MinGW.org GCC-6.3.0-1) 6.3.0`
+- `SDL2-2.0.12`
+- `SDL2_ttf-2.0.15`
 
-### Calculator
-- The user can enter basic arithmetic calculations as well as some advanced functions: power, sin, tan, cos
-- The results of those calculations will be saved to variables. In total, there are 100 available variables.
-- The variables and their values will be shown as they are created
-- The values inside of the variables can be used in further calculations
+### Struktur
+- `math-tool/` - Unser Projekt mit dem gesamten Quellcode.
+    - `math-tool/gui/` - Der Grafik-Part unseres Projekts.
+        - `math-tool/gui/lib/` - Die SDL2-Abhängigkeiten, nicht von uns(!) aber benötigt um das Programm zu kompilieren.
+    - `math-tool/backend/` - Das "Backend" unseres Projekts.
+    - `math-tool/bin/` - Der "Distributions"-Ordner des Projekts. Hier befinden sich die benötigten `dll`'s und hier landet die Executable und die Font-Datei. Dieser Ordner kann am Ende kopiert und verteilt werden um das Programm zu verbreiten. **Das Programm sollte aus diesem Ordner heraus ausgeführt werden.**
+- `MinGW/` - Der von uns genutzte Compiler, portable, zum Mitschleppen!
+- `start-mingw.bat` - Batch-Datei zum ausführen des Compilers.
 
-### Geometry
-- The user can create geometrical objects: Point, Line, Triangle, Square, Rectangle, Circle
-- The program saves some (at least 2) of those objects in variables
-- Through those variables, the user can access the objects to use in functions: Intersection, Angle
-- The objects and the results of the functions will be displayed in a coordinate system
+### Kompilieren
+Um das Projekt zu kompilieren muss zunächst die beiliegende Batch-Datei `start-mingw.bat` ausgeführt werden. Diese wird den `MinGW/bin`-Ordner temporär dem Path hinzufügen, damit wir über die geöffnete Konsole arbeiten können. Wenn der Ordner dem Path hinzugefügt wurde wird die `Powershell` geöffnet. Diese brauchen wir um das Projekt zu kompilieren.
 
-### Function plotter
-- The user can enter a polynomial function that will be displayed in a coordinate system
-- The user can zoom in and out
+Zum kompilieren des Projekts haben wir ein `Makefile` erstellt. Mit dem Befehl `make clean` werden alle zuvor kompilierten Object-Files und Executables gelöscht.
+Mit `make` wird das gesamte Projekt kompiliert.
+Diese Befehle müssen alle in der durch `start-mingw.bat` geöffneten Konsole mit der `Powershell` eingegeben werden!
 
-# master branch
-The master branch should always be clean and running fine!
-If you work on an issue, please create a new branch and create a pull request when done.
-The pull request should be reviewed by at least one person before it gets merged into the master.
-You can push "bugs" to your branch but not to the master.
+### Programm ausführen
+Wenn das Projekt erfolgreich durch `make` kompiliert wurde, kann das Programm dann auch gestartet werden. Einige Abhängigkeiten (wie SDL2 und SDL2_ttf) müssen als `dll` Datei im selben Ordner wie die `math_tool.exe` sein. Hierzu wurde der `bin/` Ordner erstellt. Um also das Programm auszuführen oder zu verbreiten, einfach in den `math-tool/bin/`-Ordner navigieren und den Inhalt kopieren oder die darin befindliche `math_tool.exe` ausführen um das Programm zu starten.
 
-# Project management
-Some issues / tasks depend on others, those are listed as "On hold".
-If you start working on one of those tasks, please move them to "In progress".
-
-If you start working on an issue, don't forget to assign it to you!
+Der `bin/`-Ordner ist zur Distribution gedacht und das Programm sollte in dieser Konstellation auf jedem halbwegs aktuellen Windows-Rechner ausführbar sein.
