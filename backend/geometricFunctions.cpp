@@ -1,19 +1,5 @@
 #include "geometricFunctions.h"
 
-// Borrowed from:
-// https://en.cppreference.com/w/cpp/types/numeric_limits/epsilon
-template<class T>
-typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
-    almost_equal(T x, T y, int ulp)
-{
-    // the machine epsilon has to be scaled to the magnitude of the values used
-    // and multiplied by the desired precision in ULPs (units in the last place)
-    return std::fabs(x-y) <= std::numeric_limits<T>::epsilon() * std::fabs(x+y) * ulp
-        // unless the result is subnormal
-        || std::fabs(x-y) < std::numeric_limits<T>::min();
-}
- 
-
 bool intersects (Line a, Line b) {
     Point p = Point();
     return intersects (a, b, p);
@@ -45,7 +31,7 @@ bool intersects (Line a, Line b, Point &p) {
         double distIA2 = distance(ic, a.getPoint(2));
         double distA12 = distance(a.getPoint(1), a.getPoint(2));
 
-        return almost_equal(distIA1 + distIA2, distA12, 2);
+        return ((int)(distIA1 + distIA2) == (int)distA12);
     }
 
     return false;
