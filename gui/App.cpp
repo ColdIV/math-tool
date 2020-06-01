@@ -17,7 +17,7 @@ App* App::mainloop() {
 	while(true) {
 		while(SDL_PollEvent(&event)) {
 			if(event.type == SDL_QUIT) {
-				return nullptr; // nullptr means we want to stay in the running app
+				return nullptr; // nullptr means we want to end the program
 			}
 
 			for (Widget *widget : this->widgets) {
