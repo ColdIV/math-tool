@@ -12,10 +12,7 @@ MenuInput::MenuInput(
 
 App * MenuInput::handleEvent(SDL_Event event) {
 	App * nextApp = LineInput::handleEvent(event);
-	// if nextApp is of type Menu, then exit(0)
-	if(nextApp != nullptr && typeid(*nextApp) == typeid(MenuApp)) {
-		exit(0); // TODO: change exit strategy, this will not clean up properly
-	}
+
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
 		if(this->text == "1") {
 			// new Geometry App
