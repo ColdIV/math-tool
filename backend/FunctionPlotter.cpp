@@ -1,7 +1,5 @@
 #include "FunctionPlotter.h"
 
-#include <regex>
-#include <iostream>
 
 FunctionPlotter::FunctionPlotter() {
 	this->rangeStart = -100;

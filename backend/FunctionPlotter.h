@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <regex>
 
 #include "Object.h"
 #include "Point.h"
