@@ -43,7 +43,73 @@ bool intersects (Line a, Line b, Point &p) {
 }
 
 std::vector <Point> getIntersections (Circle c, Object o) {
-    //
+    std::vector <Point> intersections;
+
+    // Shamelessly stolen from:
+    // http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
+    double cx = c.getPoint().x(), cy = c.getPoint().y(), radius = c.getRadius();
+
+    // Get all lines of object
+    std::vector <Point> points = o.getPoints();
+    std::vector <Line> lines (0);
+
+    Line tmp;
+
+    for (int i = 1; i < points.size(); ++i) {
+        tmp = Line (points[i - 1], points[i]);
+        lines.push_back(tmp);
+
+        if (i == points.size() - 1) {
+            tmp = Line (points[i], points[0]);
+            lines.push_back(tmp);
+        }
+    }
+
+
+    // Look for intersections between any line and circle
+    for (Line l : lines) {
+        double p1x = l.getPoint(1).x(), p1y = l.getPoint(1).y(), p2x = l.getPoint(2).x(), p2y = l.getPoint(2).y();
+        Point ic = Point();
+
+        double dx, dy, A, B, C, det, t;
+
+        dx = p2x - p1x;
+        dy = p2y - p1y;
+
+        A = dx * dx + dy * dy;
+        B = 2 * (dx * (p1x - cx) + dy * (p1y - cy));
+        C = (p1x - cx) * (p1x - cx) + (p1y - cy) * (p1y - cy) - radius * radius;
+
+        det = B * B - 4 * A * C;
+
+        if ((A <= 0.0000001) || (det < 0)) {
+            // No solution
+        } else if (det == 0) {
+            // One solution
+            t = -B / (2 * A);
+            ic = Point(p1x + t * dx, p1y + t * dy);
+            if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+                intersections.push_back(ic);
+            }
+        } else {
+            // Two solutions
+            t = (double)((-B + sqrt(det)) / (2 * A));
+            ic = Point(p1x + t * dx, p1y + t * dy);
+
+            if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+                intersections.push_back(ic);
+            }
+
+            t = (double)((-B - sqrt(det)) / (2 * A));
+            ic = Point(p1x + t * dx, p1y + t * dy);
+
+            if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+                intersections.push_back(ic);
+            }
+        }
+    }
+
+    return intersections;
 }
 
 std::vector <Point> getIntersections (Object o, Circle c) {
