@@ -35,8 +35,6 @@ bool intersects (Line a, Line b, Point &p) {
         double distIA1 = distance(ic, a.getPoint(1));
         double distIA2 = distance(ic, a.getPoint(2));
         double distA12 = distance(a.getPoint(1), a.getPoint(2));
-        
-        // ugly workaround, because 14.1421 wasn't 14.1421.
         return ((int)(distIA1 + distIA2) == (int)distA12);
     }
 
