@@ -80,10 +80,11 @@ void Graph::drawPolygon(Object *obj) {
 }
 
 void Graph::drawCircle(Circle *circle, bool filled) {
+	double radius = circle->getRadius() * this->currentZoomLevel;
 	double centerX = calculateX(circle->getPoint().x());
 	double centerY = calculateY(circle->getPoint().y());
-	double diameter = circle->getRadius() * 2;
-	double x = circle->getRadius() - 1;
+	double diameter = radius * 2;
+	double x = radius- 1;
 	double y = 0;
 	double tx = 1;
 	double ty = 1;
