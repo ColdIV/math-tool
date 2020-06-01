@@ -5,6 +5,13 @@ bool operator== (Point a, Point b) {
     return (a.x() == b.x() && a.y() == b.y());
 }
 
+bool isPointInLine(Line l, Point p) {
+    double dist1 = distance(p, l.getPoint(1));
+    double dist2 = distance(p, l.getPoint(2));
+    double dist3 = distance(l.getPoint(1), l.getPoint(2));
+    return ((int)(dist1 + dist2) == (int)dist3);
+}
+
 bool intersects (Line a, Line b) {
     Point p = Point();
     return intersects (a, b, p);
@@ -32,10 +39,7 @@ bool intersects (Line a, Line b, Point &p) {
         p = ic;
 
         // Check if point is in the desired range (as a line usually is endless)
-        double distIA1 = distance(ic, a.getPoint(1));
-        double distIA2 = distance(ic, a.getPoint(2));
-        double distA12 = distance(a.getPoint(1), a.getPoint(2));
-        return ((int)(distIA1 + distIA2) == (int)distA12);
+        return isPointInLine(a, ic);
     }
 
     return false;
@@ -87,7 +91,8 @@ std::vector <Point> getIntersections (Circle *c, Object *o) {
             // One solution
             t = -B / (2 * A);
             ic = Point(p1x + t * dx, p1y + t * dy);
-            if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+
+            if (isPointInLine(l, ic) && std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
                 intersections.push_back(ic);
             }
         } else {
@@ -95,14 +100,14 @@ std::vector <Point> getIntersections (Circle *c, Object *o) {
             t = (double)((-B + sqrt(det)) / (2 * A));
             ic = Point(p1x + t * dx, p1y + t * dy);
 
-            if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+            if (isPointInLine(l, ic) && std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
                 intersections.push_back(ic);
             }
 
             t = (double)((-B - sqrt(det)) / (2 * A));
             ic = Point(p1x + t * dx, p1y + t * dy);
 
-            if (std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
+            if (isPointInLine(l, ic) && std::find(intersections.begin(), intersections.end(), ic) == intersections.end()) {
                 intersections.push_back(ic);
             }
         }

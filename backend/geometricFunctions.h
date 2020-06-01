@@ -14,6 +14,8 @@
     #define M_PI 3.14159265358979323846
 #endif
 
+bool isPointInLine(Line l, Point p);
+
 std::vector <Point> getIntersections (Circle *c, Object *o);
 
 std::vector <Point> getIntersections (Object *o, Circle *c);
