@@ -103,7 +103,7 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         // create object and add to map
         if (objName == "point") {
             if (numbers.size() == 2) {
-                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 3);
+                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 1);
                 this->objects["P" + std::to_string(++this->objectNum['P'])] = tmp;
             }
         } else if (objName == "circle") {
