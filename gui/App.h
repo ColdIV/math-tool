@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <vector>
+#include <typeinfo>
 
 #include "debug.h"
 #include "Widget.h"
