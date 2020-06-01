@@ -7,3 +7,5 @@ gui/lib/*
 test.cpp
 **/*.o
 **/*.a
+bin/*
+!bin/.gitkeep

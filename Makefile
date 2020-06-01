@@ -15,6 +15,7 @@ endif
 
 # setting vars
 BIN = math_tool
+FONT = arial.ttf
 SFILES = main.cpp
 OFILES = $(SFILES:.cpp=.o)
 HFILES = gui/run.h
@@ -30,6 +31,13 @@ LINKER_FLAGS = -L gui/ -L backend/ -lgui -lbackend $(OS_FLAGS) $(SDL2_LIBS) -lSD
 # use the right order for the libs, because they depend on each other!
 $(BIN): $(LIBS) $(OFILES)
 	$(COMPILER_COMMAND) -o $(BIN) $(OFILES) $(LINKER_FLAGS)
+ifeq ($(OS),Windows_NT)
+	copy $(BIN).exe bin
+	copy $(FONT) bin
+else
+	cp $(BIN) bin
+	cp $(FONT) bin
+endif
 
 # compile
 $(OFILES): $(SFILES) $(HFILES)
@@ -46,7 +54,11 @@ clean:
 ifeq ($(OS),Windows_NT)
 	del $(OFILES)
 	del $(BIN).exe
+	del bin\$(FONT)
+	del bin\$(BIN).exe
 else
 	rm -f $(OFILES)
 	rm -f $(BIN)
+	rm -f bin/$(FONT)
+	rm -f bin/$(BIN)
 endif

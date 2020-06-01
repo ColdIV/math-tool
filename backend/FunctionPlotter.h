@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <regex>
 
 #include "Object.h"
 #include "Point.h"
@@ -15,6 +16,7 @@ class FunctionPlotter {
 		double rangeEnd;
 		double stepSize;
 
+		std::string normalizeInput(std::string s);
 		std::string replaceAll(std::string s, std::string from, std::string to);
 	public:
 		FunctionPlotter();

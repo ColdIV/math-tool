@@ -9,7 +9,6 @@ Parser::Parser(TokenStream *tsp) {
 }
 
 double Parser::expr(bool getNeeded) {
-	this->clearError();
 	double left = term(getNeeded);
 
 	while(true) {
@@ -44,8 +43,7 @@ double Parser::term(bool getNeeded) {
 			case '/': {
 				double right = power(true);
 				if(right == 0) {
-					this->setError("ERROR: division by zero");
-					return 0;
+					throw "ERROR: division by zero";
 				}
 				left /= right;
 				break;
@@ -87,8 +85,7 @@ double Parser::primary(bool getNeeded) {
 			subExpr = true; // do not save subexpression to memory
 			double expression = expr(true);
 			if ((*tsp).current().kind != ')') {
-				this->setError("ERROR: ) expected!");
-				return 0;
+				throw "ERROR: ) expected";
 			}
 			(*tsp).get(); // drop the ")" at the end of the expression from currentToken
 			return expression;
@@ -96,8 +93,7 @@ double Parser::primary(bool getNeeded) {
 		case 'v': { // variable
 			int varNumber = stoi((*tsp).current().strValue) - 1;
 			if(varNumber > MAX_MEMORY) {
-				this->setError("ERROR: variable number invalid!");
-				return 0;
+				throw "ERROR: variable number invalid";
 			}
 			(*tsp).get(); // get next token
 
@@ -119,13 +115,8 @@ double Parser::primary(bool getNeeded) {
 		case 't': {
 			return tan(primary(true));
 		}
-		case '#': { // skip
-			this->setError("");
-			return 0;
-		}
 		default:
-			this->setError("ERROR: not a primary!");
-			return 0;
+			throw "ERROR: not a primary";
 	}
 }
 
@@ -140,20 +131,4 @@ std::string Parser::getMemory() {
 	}
 
 	return out.str();
-}
-
-bool Parser::getError() {
-	return this->error.state;
-}
-
-std::string Parser::getErrorMsg() {
-	return this->error.message;
-}
-
-void Parser::setError(std::string msg) {
-	this->error = {true, msg};
-}
-
-void Parser::clearError() {
-	this->error = {false, ""};
 }

@@ -16,10 +16,15 @@ App * FunctionPlotterInput::handleEvent(SDL_Event event) {
 	}
 
 	if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-		this->functionPlotter->makeFunction(this->text);
-		this->graph->setObjects(this->functionPlotter->getFunction());
+		if (this->text == "+") {
+			this->graph->changeZoomLevel(true);
+		} else if (this->text == "-") {
+			this->graph->changeZoomLevel(false);
+		} else {
+			this->functionPlotter->makeFunction(this->text);
+			this->graph->setObjects(this->functionPlotter->getFunction());
+		}
 		this->text = "";
 	}
-
 	return nextApp; // if it's nullptr, we want to stay in the FunctionPlotter
 }

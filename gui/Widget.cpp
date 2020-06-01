@@ -24,20 +24,22 @@ App* Widget::handleEvent(SDL_Event event) {
 
 void Widget::draw() {
 	debug("drawing in superclass");
-	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+	if (DEBUG) { // draw border around widget
+		SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
 
-	SDL_RenderDrawLine(
-		this->renderer, this->xStart, this->yStart, this->xEnd, this->yStart
-	);
-	SDL_RenderDrawLine(
-		this->renderer, this->xStart, this->yStart, this->xStart, this->yEnd
-	);
-	SDL_RenderDrawLine(
-		this->renderer, this->xEnd, this->yStart, this->xEnd, this->yEnd
-	);
-	SDL_RenderDrawLine(
-		this->renderer, this->xStart, this->yEnd, this->xEnd, this->yEnd
-	);
+		SDL_RenderDrawLine(
+			this->renderer, this->xStart, this->yStart, this->xEnd, this->yStart
+		);
+		SDL_RenderDrawLine(
+			this->renderer, this->xStart, this->yStart, this->xStart, this->yEnd
+		);
+		SDL_RenderDrawLine(
+			this->renderer, this->xEnd, this->yStart, this->xEnd, this->yEnd
+		);
+		SDL_RenderDrawLine(
+			this->renderer, this->xStart, this->yEnd, this->xEnd, this->yEnd
+		);
+	}
 
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
 }

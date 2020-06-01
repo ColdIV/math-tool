@@ -17,6 +17,7 @@ public:
 	);
 
 	virtual void draw();
+	std::string getText();
 	void setText(std::string newText);
 };
 

@@ -32,3 +32,29 @@ Point Object::getPoint (int n) {
 std::vector <Point> Object::getPoints () {
 	return this->points;
 }
+
+std::string Object::toString () {
+	std::string points = "(";
+	std::string suffix = ", ";
+
+	for (int i = 0; i < this->points.size(); ++i) {
+		double x, y;
+		x = this->points[i].x();
+		y = this->points[i].y();
+
+		std::stringstream stream;
+		std::string p;
+		
+		stream << std::fixed << std::setprecision(2) << x << "|" << y;
+		p = stream.str();
+
+		points += "(" + p + ")";
+		if (i < this->points.size() - 1) {
+			points += suffix;
+		}
+	}
+
+	points += ")";
+
+	return points;
+}
