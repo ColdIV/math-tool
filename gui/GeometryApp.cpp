@@ -10,6 +10,11 @@ GeometryApp::GeometryApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren) {
 		win, ren, 0, 500, 700, 600, "Angelegte Objekte: ", 18
 	};
 
+	// widget for displaying the functions results
+	TextOutput *funcResults = new TextOutput{
+		win, ren, 500, 0, 800, 300, "", 18
+	};
+
 	// widget for input prompt
 	TextOutput *prompt = new TextOutput{
 		win, ren, 0, 450, 600, 500, "Eingabe ('q' zum Beenden): ", 24
@@ -19,11 +24,12 @@ GeometryApp::GeometryApp(SDL_Window *win, SDL_Renderer *ren) : App(win, ren) {
 	this->parser = new GeometryParser{};
 	GeometryInput *input = new GeometryInput{
 		win, ren, 320, 450, 600, 500, "", 24, graph, this->parser,
-		createdObjects
+		createdObjects, funcResults
 	};
 
 	this->widgets.push_back(graph);
 	this->widgets.push_back(createdObjects);
+	this->widgets.push_back(funcResults);
 	this->widgets.push_back(prompt);
 	this->widgets.push_back(input);
 }

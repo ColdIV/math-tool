@@ -1,13 +1,15 @@
 #include "GeometryInput.h"
 
+
 GeometryInput::GeometryInput(
 	SDL_Window *w, SDL_Renderer *r, int x1, int y1, int x2, int y2,
 	std::string text, int fontSize, Graph *graph, GeometryParser *parser,
-	TextOutput *createdObjects
+	TextOutput *createdObjects, TextOutput *funcResults
 ) : LineInput(w, r, x1, y1, x2, y2, text, fontSize) {
 	this->graph = graph;
 	this->parser = parser;
 	this->createdObjects = createdObjects;
+	this->funcResults = funcResults;
 }
 
 App * GeometryInput::handleEvent(SDL_Event event) {
@@ -26,7 +28,9 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 			if (inputType == "") {
 				this->text = "";
 			} else if (inputType == "angle" || inputType == "intersection") {
-				// TODO: call geometricFunctions
+				if (inputType == "angle") {
+					displayAngle();
+				}
 			} else { // must be an object
 				std::unordered_map <std::string, Object*> allObjects;
 				allObjects = this->parser->parseObject(this->text);
@@ -47,4 +51,18 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 	}
 
 	return nextApp;
+}
+
+void GeometryInput::displayAngle() {
+	std::vector<Object*> params; // we need 2 lines to calc angle
+	params = this->parser->parseParameters(this->text);
+	Line *line1 = dynamic_cast<Line*>(params[0]);
+	Line *line2 = dynamic_cast<Line*>(params[1]);
+	double result = angle(*line1, *line2);
+	std::string resultString = this->funcResults->getText();
+	resultString += this->text;
+	resultString += ": ";
+	resultString += std::to_string(result);
+	resultString += "\n";
+	this->funcResults->setText(resultString);
 }
