@@ -4,7 +4,7 @@
 GeometryParser::GeometryParser () {
     this->objectNames = {"point", "circle", "line", "triangle", "square", "rectangle", "punkt", "kreis", "linie", "dreieck", "quadrat", "rechteck"};
     this->functionNames = {"angle", "intersection", "winkel", "schnittpunkt"};
-    
+
     // add translations
     // objects
     this->nameTranslations["point"] = "point";
@@ -30,21 +30,21 @@ GeometryParser::GeometryParser () {
 std::string GeometryParser::identify (std::string s) {
     transform(s.begin(), s.end(), s.begin(), ::tolower);
 
-    // check for object
-    for (int i = 0; i < this->objectNames.size(); ++i) {
-        std::size_t found = s.find(this->objectNames[i]);
-
-        if (found != std::string::npos) {
-            return this->nameTranslations[this->objectNames[i]];
-        }
-    }
-
     // check for function
     for (int i = 0; i < this->functionNames.size(); ++i) {
         std::size_t found = s.find(this->functionNames[i]);
 
         if (found != std::string::npos) {
             return this->nameTranslations[this->functionNames[i]];
+        }
+    }
+
+    // check for object
+    for (int i = 0; i < this->objectNames.size(); ++i) {
+        std::size_t found = s.find(this->objectNames[i]);
+
+        if (found != std::string::npos) {
+            return this->nameTranslations[this->objectNames[i]];
         }
     }
 
@@ -74,7 +74,7 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         // find all numbers
         int sign = 1;
         std::vector <double> numbers (0);
-        
+
         for (int i = objParams; i < s.length(); ++i) {
             if (isdigit(s[i])) {
                 // found number
@@ -103,7 +103,7 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         // create object and add to map
         if (objName == "point") {
             if (numbers.size() == 2) {
-                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 1);
+                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 3);
                 this->objects["P" + std::to_string(++this->objectNum['P'])] = tmp;
             }
         } else if (objName == "circle") {
