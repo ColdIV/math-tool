@@ -35,8 +35,9 @@ bool intersects (Line a, Line b, Point &p) {
         double distIA1 = distance(ic, a.getPoint(1));
         double distIA2 = distance(ic, a.getPoint(2));
         double distA12 = distance(a.getPoint(1), a.getPoint(2));
-
-        return (distIA1 + distIA2 == distA12);
+        
+        // ugly workaround, because 14.1421 wasn't 14.1421.
+        return ((int)(distIA1 + distIA2) == (int)distA12);
     }
 
     return false;
@@ -151,6 +152,14 @@ std::vector <Point> getIntersections (Circle *a, Circle *b) {
 }
 
 std::vector <Point> getIntersections (Object *a, Object *b) {
+    // Check if one of the objects is a circle
+    Circle *c1 = dynamic_cast<Circle *>(a);
+    Circle *c2 = dynamic_cast<Circle *>(b);
+    if (c1 && c2) return getIntersections (c1, c2);
+    else if (c1 && !c2) return getIntersections (c1, b);
+    else if (!c1 && c2) return getIntersections (a, c2);
+
+
     std::vector <Point> intersections (0);
 
     // Get all points of the objects
