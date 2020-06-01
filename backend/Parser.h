@@ -2,7 +2,6 @@
 #define _PARSER_H_
 
 #include "TokenStream.h"
-#include "error.h"
 
 #define MAX_MEMORY 100
 
@@ -13,7 +12,6 @@ class Parser {
 		bool memoryFull;
 		bool subExpr;
 		TokenStream *tsp;
-		Error error = {false, ""};
 	public:
 		Parser(TokenStream *tsp);
 
@@ -23,11 +21,6 @@ class Parser {
 		double primary(bool getNeeded);
 
 		std::string getMemory();
-
-		bool getError();
-		std::string getErrorMsg();
-		void setError(std::string msg);
-		void clearError();
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 
 Calculator::Calculator() {
-	std::stringstream *s = new stringstream;
+	std::stringstream *s = new std::stringstream;
 	this->ip = s;
 	this->ts = new TokenStream(ip);
 	this->parser = new Parser(ts);
@@ -27,8 +27,8 @@ Calculator::~Calculator() {
 double Calculator::calculate(std::string s) {
 	// if ip is a stringstream, we have to dynamically cast it to one, because
 	// it is saved as pointer to the base class (istream)
-	if (typeid(*ip) == typeid(stringstream)){
-		*(dynamic_cast<stringstream*>(ip)) << s;
+	if (typeid(*ip) == typeid(std::stringstream)){
+		*(dynamic_cast<std::stringstream*>(ip)) << s;
 	} else {
 		throw "calculate() can't be called";
 	}

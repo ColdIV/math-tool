@@ -9,11 +9,13 @@
 class CalculatorInput : public LineInput{
 private:
 	TextOutput *output;
+	TextOutput *errors;
 	Calculator *calculator;
 public:
 	CalculatorInput(
 		SDL_Window *w, SDL_Renderer *r, int x1, int y1, int x2, int y2,
-		std::string text, int fontSize, TextOutput *output, Calculator *c
+		std::string text, int fontSize, TextOutput *output, TextOutput *errors,
+		Calculator *c
 	);
 
 	virtual App * handleEvent(SDL_Event event);
