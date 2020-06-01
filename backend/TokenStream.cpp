@@ -70,7 +70,7 @@ Token TokenStream::get() {
 			// read characters until we encounter a space or (
 			// strValue can't be empty, otherwise the overwriting by character won't work
 			this->currentToken.strValue = "placeholder";
-			for (inputLen = 0; (c = this->ip->get()) != '(' && !isspace(c); inputLen++) {
+			for (inputLen = 0; (c = this->ip->get()) != '(' && !isspace(c) && c != EOF; inputLen++) {
 				this->currentToken.strValue[inputLen] = c;
 			}
 			// cat strValue at the end of the function name
@@ -87,8 +87,8 @@ Token TokenStream::get() {
 			} else if((this->currentToken.strValue) == "tan") {
 				this->currentToken.kind = 't';
 			} else{
-				std::cout << "ERROR: not a valid function: " << this->currentToken.strValue << "\n";
-				this->currentToken = {'#', "skip", 0};
+				resetStream();
+				throw "ERROR: not a valid function";
 			}
 
 			break;
@@ -100,8 +100,8 @@ Token TokenStream::get() {
 			int varNumber;
 			*(this->ip) >> nextChar;
 			if(!isdigit(nextChar)) {
-				std::cout << "ERROR: invalid variable number: " << nextChar << "\n";
-				this->currentToken = {'#', "skip", 0};
+				resetStream();
+				throw "ERROR: invalid variable number";
 			} else {
 				this->ip->putback(nextChar);
 				*(this->ip) >> varNumber;
@@ -110,9 +110,8 @@ Token TokenStream::get() {
 			}
 			break;
 		default: // error
-			std::cout << "ERROR: invalid input: " << ch << "\n";
-			this->currentToken = {'#', "skip", 0};
-			break;
+			resetStream();
+			throw "ERROR: invalid input";
 	}
 
 	return this->currentToken;
