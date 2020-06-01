@@ -61,11 +61,11 @@ void GeometryInput::displayAngle() {
 	Line *line1 = dynamic_cast<Line*>(params[0]);
 	Line *line2 = dynamic_cast<Line*>(params[1]);
 	double result = angle(*line1, *line2);
-	std::string resultString = this->funcResults->getText();
-	resultString += this->text;
-	resultString += ": ";
-	resultString += std::to_string(result);
-	resultString += "\n";
+	std::stringstream tmpS;
+	std::string resultString;
+	tmpS << this->funcResults->getText();
+	tmpS << this->text << ": " << std::setprecision(2) << result << "\n";
+	resultString = tmpS.str();
 	this->funcResults->setText(resultString);
 }
 
@@ -76,15 +76,16 @@ void GeometryInput::displayIntersections() {
 	intersections = getIntersections(*(params[0]), *(params[1]));
 	// add Intersections to the objects to be drawn and
 	// display string representation of the intersections on screen
-	std::string resultString = this->funcResults->getText();
-	resultString += this->text;
+	std::stringstream tmpS;
+	std::string resultString;
+	tmpS << this->funcResults->getText();
+	tmpS << this->text;
 	for (Point p : intersections) {
 		this->graph->addIntersection(p);
-		resultString += ": (";
-		resultString += std::to_string(p.x());
-		resultString += "/";
-		resultString += std::to_string(p.y());
-		resultString += "),\n";
+		tmpS <<  ": (";
+		tmpS << std::setprecision(2) << p.x() << "/";
+		tmpS << std::setprecision(2) << p.y() << "),\n";
+		resultString = tmpS.str();
 		this->funcResults->setText(resultString);
 	}
 }
