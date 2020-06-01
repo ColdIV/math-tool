@@ -1,5 +1,10 @@
 #include "geometricFunctions.h"
 
+// Necessary for std::find in intersection()
+bool operator== (Point a, Point b) {
+    return (a.x() == b.x() && a.y() == b.y());
+}
+
 bool intersects (Line a, Line b) {
     Point p = Point();
     return intersects (a, b, p);
@@ -37,7 +42,48 @@ bool intersects (Line a, Line b, Point &p) {
     return false;
 }
 
-// @TODO: Support points somehow
+std::vector <Point> getIntersections (Circle c, Object o) {
+    //
+}
+
+std::vector <Point> getIntersections (Object o, Circle c) {
+    return getIntersections (c, o);
+}
+
+std::vector <Point> getIntersections (Circle a, Circle b) {
+    std::vector <Point> intersections;
+
+    // check if circles are identical
+    if (a.getPoint() == b.getPoint() && a.getRadius() == b.getRadius()) return intersections;
+
+    // Shamelessly stolen from:
+    // https://www.xarg.org/2016/07/calculate-the-intersection-points-of-two-circles/
+    double d = std::hypot(b.getPoint().x() - a.getPoint().x(), b.getPoint().y() - a.getPoint().y());
+
+    if (d <= a.getRadius() + b.getRadius() && d >= abs(b.getRadius() - a.getRadius())) {
+        double ex = (b.getPoint().x() - a.getPoint().x()) / d;
+        double ey = (b.getPoint().y() - a.getPoint().y()) / d;
+
+        double x = (a.getRadius() * a.getRadius() - b.getRadius() * b.getRadius() + d * d) / (2* d);
+        double y = sqrt(a.getRadius() * a.getRadius() - x * x);
+
+        Point P1 = Point (
+            a.getPoint().x() + x * ex - y * ey,
+            a.getPoint().y() + x * ey + y * ex
+        );
+
+        Point P2 = Point (
+            a.getPoint().x() + x * ex + y * ey,
+            a.getPoint().y() + x * ey - y * ex
+        );
+
+        intersections.push_back(P1);
+        intersections.push_back(P2);
+    }
+
+    return intersections;
+}
+
 std::vector <Point> getIntersections (Object a, Object b) {
     std::vector <Point> intersections (0);
 
@@ -71,7 +117,7 @@ std::vector <Point> getIntersections (Object a, Object b) {
         }
     }
 
-    // Find intersctions between those lines
+    // Find intersections between those lines
     for (Line aL : aLines) {
         for (Line bL : bLines) {
             Point ic = Point();
@@ -117,7 +163,3 @@ double distance (Point a, Point b) {
     return sqrt(pow(b.x() - a.x(), 2) + pow(b.y() - a.y(), 2));
 }
 
-// Necessary for std::find in intersection()
-bool operator== (Point a, Point b) {
-    return (a.x() == b.x() && a.y() == b.y());
-}
