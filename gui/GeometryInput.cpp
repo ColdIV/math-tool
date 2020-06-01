@@ -74,13 +74,12 @@ void GeometryInput::displayIntersections() {
 	params = this->parser->parseParameters(this->text);
 	std::vector<Point> intersections; // the resulting intersections
 	intersections = getIntersections(*(params[0]), *(params[1]));
-	// add Intersections to the objects to be drawn
-	// TODO: maybe add it to a different vector, so that they can be drawn differently
-	// from regular objects (e.g. filled)
+	// add Intersections to the objects to be drawn and
 	// display string representation of the intersections on screen
 	std::string resultString = this->funcResults->getText();
 	resultString += this->text;
 	for (Point p : intersections) {
+		this->graph->addIntersection(p);
 		resultString += ": (";
 		resultString += std::to_string(p.x());
 		resultString += "/";

@@ -20,13 +20,21 @@ void Graph::draw() {
 	if (this->mode == "functions") {
 		drawFunction();
 	} else { // mode must be "objects"
+		// draw the created objects:
 		for(Object *obj : this->objects) {
 			if(typeid(*obj) == typeid(Circle)) {
 				Circle *c = dynamic_cast<Circle *>(obj);
-				drawCircle(c);
+				SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+				drawCircle(c, false);
 			} else { // must be a polygon
 				drawPolygon(obj);
 			}
+		}
+		// draw the intersections:
+		for(Point p : this->intersections) {
+			Circle tempC (p, 5);
+			SDL_SetRenderDrawColor(this->renderer, 153, 255, 51, 255);
+			drawCircle(&tempC, true);
 		}
 	}
 
@@ -71,9 +79,7 @@ void Graph::drawPolygon(Object *obj) {
 	);
 }
 
-void Graph::drawCircle(Circle *circle) {
-	SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
-
+void Graph::drawCircle(Circle *circle, bool filled) {
 	double centerX = calculateX(circle->getPoint().x());
 	double centerY = calculateY(circle->getPoint().y());
 	double diameter = circle->getRadius() * 2;
@@ -93,6 +99,24 @@ void Graph::drawCircle(Circle *circle) {
 		SDL_RenderDrawPoint(this->renderer, centerX + y, centerY + x);
 		SDL_RenderDrawPoint(this->renderer, centerX - y, centerY - x);
 		SDL_RenderDrawPoint(this->renderer, centerX - y, centerY + x);
+		if (filled) {
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX + x, centerY - y);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX + x, centerY + y);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX - x, centerY - y);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX - x, centerY + y);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX + y, centerY - x);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX + y, centerY + x);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX - y, centerY - x);
+			SDL_RenderDrawLine(
+				this->renderer, centerX, centerY, centerX - y, centerY + x);
+		}
 
 		if (error <= 0) {
 			++y;
@@ -133,6 +157,10 @@ void Graph::connectPoints(Object *obj) {
 		}
 		SDL_RenderDrawLine(this->renderer, currentX, currentY, nextX, nextY);
 	}
+}
+
+void Graph::addIntersection(Point p) {
+	this->intersections.push_back(p);
 }
 
 void Graph::addObject(Object *obj) {

@@ -12,6 +12,7 @@
 class Graph : public Widget{
 private:
 	std::vector<Object*> objects;
+	std::vector<Point> intersections;
 	int xZero;
 	int yZero;
 	double defaultZoomLevel;
@@ -28,9 +29,10 @@ public:
 	void drawCoordinateSystem();
 	void drawFunction();
 	void drawPolygon(Object *obj);
-	void drawCircle(Circle *circle);
+	void drawCircle(Circle *circle, bool filled);
 	void connectPoints(Object *obj);
 
+	void addIntersection(Point p);
 	void addObject(Object *obj);
 	void setObjects(Object *obj);
 	void changeZoomLevel(bool increase);
