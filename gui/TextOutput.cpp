@@ -26,6 +26,10 @@ void TextOutput::draw(){
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
 }
 
+std::string TextOutput::getText() {
+	return this->text;
+}
+
 void TextOutput::setText(std::string newText) {
 	this->text = newText;
 }

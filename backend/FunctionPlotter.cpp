@@ -2,8 +2,8 @@
 
 
 FunctionPlotter::FunctionPlotter() {
-	this->rangeStart = -50;
-	this->rangeEnd = 50;
+	this->rangeStart = -100;
+	this->rangeEnd = 100;
 	this->stepSize = 0.05;
 }
 
@@ -19,8 +19,8 @@ void FunctionPlotter::makeFunction(std::string s) {
 	// we can instanciate a calculator here, we don't need to save it
 	Calculator C;
 
-	// replace every x with * x TODO: this does not allow stuff like "sin(x)"
-	//s = replaceAll(s, "x", "*x");
+	// replace every x with *x if it is preceded by a number
+	s = normalizeInput(s);
 
 	this->functionObject = nullptr;
 
@@ -42,6 +42,12 @@ void FunctionPlotter::makeFunction(std::string s) {
 
 Object * FunctionPlotter::getFunction() {
 	return this->functionObject;
+}
+
+std::string FunctionPlotter::normalizeInput(std::string s) {
+	// digit followed by a "x"
+	std::regex r ("([[:digit:]])x");
+	return std::regex_replace(s, r, "$1*x");
 }
 
 std::string FunctionPlotter::replaceAll(std::string s, std::string from, std::string to) {
