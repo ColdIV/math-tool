@@ -73,7 +73,7 @@ void GeometryInput::displayIntersections() {
 	std::vector<Object *> params; // we need to objects to calculate intersection
 	params = this->parser->parseParameters(this->text);
 	std::vector<Point> intersections; // the resulting intersections
-	intersections = getIntersections(*(params[0]), *(params[1]));
+	intersections = getIntersections(params[0], params[1]);
 	// add Intersections to the objects to be drawn and
 	// display string representation of the intersections on screen
 	std::stringstream tmpS;
