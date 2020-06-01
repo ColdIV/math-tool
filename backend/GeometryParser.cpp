@@ -30,21 +30,21 @@ GeometryParser::GeometryParser () {
 std::string GeometryParser::identify (std::string s) {
     transform(s.begin(), s.end(), s.begin(), ::tolower);
 
-    // check for object
-    for (int i = 0; i < this->objectNames.size(); ++i) {
-        std::size_t found = s.find(this->objectNames[i]);
-
-        if (found != std::string::npos) {
-            return this->nameTranslations[this->objectNames[i]];
-        }
-    }
-
     // check for function
     for (int i = 0; i < this->functionNames.size(); ++i) {
         std::size_t found = s.find(this->functionNames[i]);
 
-        if (found != std::string::npos) {
+        if (found != std::string::npos && found == 0) {
             return this->nameTranslations[this->functionNames[i]];
+        }
+    }
+
+    // check for object
+    for (int i = 0; i < this->objectNames.size(); ++i) {
+        std::size_t found = s.find(this->objectNames[i]);
+
+        if (found != std::string::npos && found == 0) {
+            return this->nameTranslations[this->objectNames[i]];
         }
     }
 
@@ -103,13 +103,13 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         // create object and add to map
         if (objName == "point") {
             if (numbers.size() == 2) {
-                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 3);
+                Circle *tmp = new Circle(Point (numbers[0], numbers[1]), 1);
                 this->objects["P" + std::to_string(++this->objectNum['P'])] = tmp;
             }
         } else if (objName == "circle") {
             if (numbers.size() == 3) {
                 Circle *tmp = new Circle(Point (numbers[0], numbers[1]), numbers[2]);
-                this->objects["C" + std::to_string(++this->objectNum['C'])] = tmp;
+                this->objects["K" + std::to_string(++this->objectNum['C'])] = tmp;
             }
         } else if (objName == "line") {
             if (numbers.size() == 4) {
@@ -119,12 +119,12 @@ std::unordered_map <std::string, Object*> GeometryParser::parseObject (std::stri
         } else if (objName == "triangle") {
             if (numbers.size() == 6) {
                 Triangle *tmp = new Triangle(Point (numbers[0], numbers[1]), Point (numbers[2], numbers[3]), Point (numbers[4], numbers[5]));
-                this->objects["T" + std::to_string(++this->objectNum['T'])] = tmp;
+                this->objects["D" + std::to_string(++this->objectNum['T'])] = tmp;
             }
         } else if (objName == "square") {
             if (numbers.size() == 4) {
                 Square *tmp = new Square(Point (numbers[0], numbers[1]), Point (numbers[2], numbers[3]));
-                this->objects["S" + std::to_string(++this->objectNum['S'])] = tmp;
+                this->objects["Q" + std::to_string(++this->objectNum['S'])] = tmp;
             }
         } else if (objName == "rectangle") {
             if (numbers.size() == 8) {
