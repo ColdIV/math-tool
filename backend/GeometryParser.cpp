@@ -30,21 +30,21 @@ GeometryParser::GeometryParser () {
 std::string GeometryParser::identify (std::string s) {
     transform(s.begin(), s.end(), s.begin(), ::tolower);
 
-    // check for object
-    for (int i = 0; i < this->objectNames.size(); ++i) {
-        std::size_t found = s.find(this->objectNames[i]);
-
-        if (found != std::string::npos) {
-            return this->nameTranslations[this->objectNames[i]];
-        }
-    }
-
     // check for function
     for (int i = 0; i < this->functionNames.size(); ++i) {
         std::size_t found = s.find(this->functionNames[i]);
 
         if (found != std::string::npos) {
             return this->nameTranslations[this->functionNames[i]];
+        }
+    }
+
+    // check for object
+    for (int i = 0; i < this->objectNames.size(); ++i) {
+        std::size_t found = s.find(this->objectNames[i]);
+
+        if (found != std::string::npos) {
+            return this->nameTranslations[this->objectNames[i]];
         }
     }
 

@@ -1,13 +1,15 @@
 #include "GeometryInput.h"
 
+
 GeometryInput::GeometryInput(
 	SDL_Window *w, SDL_Renderer *r, int x1, int y1, int x2, int y2,
 	std::string text, int fontSize, Graph *graph, GeometryParser *parser,
-	TextOutput *createdObjects
+	TextOutput *createdObjects, TextOutput *funcResults
 ) : LineInput(w, r, x1, y1, x2, y2, text, fontSize) {
 	this->graph = graph;
 	this->parser = parser;
 	this->createdObjects = createdObjects;
+	this->funcResults = funcResults;
 }
 
 App * GeometryInput::handleEvent(SDL_Event event) {
@@ -26,7 +28,11 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 			if (inputType == "") {
 				this->text = "";
 			} else if (inputType == "angle" || inputType == "intersection") {
-				// TODO: call geometricFunctions
+				if (inputType == "angle") {
+					displayAngle();
+				} else {
+					displayIntersections();
+				}
 			} else { // must be an object
 				std::unordered_map <std::string, Object*> allObjects;
 				allObjects = this->parser->parseObject(this->text);
@@ -47,4 +53,39 @@ App * GeometryInput::handleEvent(SDL_Event event) {
 	}
 
 	return nextApp;
+}
+
+void GeometryInput::displayAngle() {
+	std::vector<Object*> params; // we need 2 lines to calc angle
+	params = this->parser->parseParameters(this->text);
+	Line *line1 = dynamic_cast<Line*>(params[0]);
+	Line *line2 = dynamic_cast<Line*>(params[1]);
+	double result = angle(*line1, *line2);
+	std::stringstream tmpS;
+	std::string resultString;
+	tmpS << this->funcResults->getText();
+	tmpS << this->text << ": " << std::setprecision(2) << result << "\n";
+	resultString = tmpS.str();
+	this->funcResults->setText(resultString);
+}
+
+void GeometryInput::displayIntersections() {
+	std::vector<Object *> params; // we need to objects to calculate intersection
+	params = this->parser->parseParameters(this->text);
+	std::vector<Point> intersections; // the resulting intersections
+	intersections = getIntersections(*(params[0]), *(params[1]));
+	// add Intersections to the objects to be drawn and
+	// display string representation of the intersections on screen
+	std::stringstream tmpS;
+	std::string resultString;
+	tmpS << this->funcResults->getText();
+	tmpS << this->text;
+	for (Point p : intersections) {
+		this->graph->addIntersection(p);
+		tmpS <<  ": (";
+		tmpS << std::setprecision(2) << p.x() << "/";
+		tmpS << std::setprecision(2) << p.y() << "),\n";
+		resultString = tmpS.str();
+		this->funcResults->setText(resultString);
+	}
 }
