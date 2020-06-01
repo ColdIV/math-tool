@@ -32,7 +32,7 @@ void Graph::draw() {
 		}
 		// draw the intersections:
 		for(Point p : this->intersections) {
-			Circle tempC (p, 5);
+			Circle tempC (p, 1);
 			SDL_SetRenderDrawColor(this->renderer, 153, 255, 51, 255);
 			drawCircle(&tempC, true);
 		}
