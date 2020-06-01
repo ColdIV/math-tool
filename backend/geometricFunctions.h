@@ -14,13 +14,13 @@
     #define M_PI 3.14159265358979323846
 #endif
 
-std::vector <Point> getIntersections (Circle c, Object o);
+std::vector <Point> getIntersections (Circle *c, Object *o);
 
-std::vector <Point> getIntersections (Object o, Circle c);
+std::vector <Point> getIntersections (Object *o, Circle *c);
 
-std::vector <Point> getIntersections (Circle a, Circle b);
+std::vector <Point> getIntersections (Circle *a, Circle *b);
 
-std::vector <Point> getIntersections (Object a, Object b);
+std::vector <Point> getIntersections (Object *a, Object *b);
 
 bool intersects (Line a, Line b);
 

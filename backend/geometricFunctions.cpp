@@ -42,15 +42,15 @@ bool intersects (Line a, Line b, Point &p) {
     return false;
 }
 
-std::vector <Point> getIntersections (Circle c, Object o) {
+std::vector <Point> getIntersections (Circle *c, Object *o) {
     std::vector <Point> intersections;
 
     // Shamelessly stolen from:
     // http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-    double cx = c.getPoint().x(), cy = c.getPoint().y(), radius = c.getRadius();
+    double cx = c->getPoint().x(), cy = c->getPoint().y(), radius = c->getRadius();
 
     // Get all lines of object
-    std::vector <Point> points = o.getPoints();
+    std::vector <Point> points = o->getPoints();
     std::vector <Line> lines (0);
 
     Line tmp;
@@ -112,35 +112,35 @@ std::vector <Point> getIntersections (Circle c, Object o) {
     return intersections;
 }
 
-std::vector <Point> getIntersections (Object o, Circle c) {
+std::vector <Point> getIntersections (Object *o, Circle *c) {
     return getIntersections (c, o);
 }
 
-std::vector <Point> getIntersections (Circle a, Circle b) {
+std::vector <Point> getIntersections (Circle *a, Circle *b) {
     std::vector <Point> intersections;
 
     // check if circles are identical
-    if (a.getPoint() == b.getPoint() && a.getRadius() == b.getRadius()) return intersections;
+    if (a->getPoint() == b->getPoint() && a->getRadius() == b->getRadius()) return intersections;
 
     // Shamelessly stolen from:
     // https://www.xarg.org/2016/07/calculate-the-intersection-points-of-two-circles/
-    double d = std::hypot(b.getPoint().x() - a.getPoint().x(), b.getPoint().y() - a.getPoint().y());
+    double d = std::hypot(b->getPoint().x() - a->getPoint().x(), b->getPoint().y() - a->getPoint().y());
 
-    if (d <= a.getRadius() + b.getRadius() && d >= abs(b.getRadius() - a.getRadius())) {
-        double ex = (b.getPoint().x() - a.getPoint().x()) / d;
-        double ey = (b.getPoint().y() - a.getPoint().y()) / d;
+    if (d <= a->getRadius() + b->getRadius() && d >= abs(b->getRadius() - a->getRadius())) {
+        double ex = (b->getPoint().x() - a->getPoint().x()) / d;
+        double ey = (b->getPoint().y() - a->getPoint().y()) / d;
 
-        double x = (a.getRadius() * a.getRadius() - b.getRadius() * b.getRadius() + d * d) / (2* d);
-        double y = sqrt(a.getRadius() * a.getRadius() - x * x);
+        double x = (a->getRadius() * a->getRadius() - b->getRadius() * b->getRadius() + d * d) / (2* d);
+        double y = sqrt(a->getRadius() * a->getRadius() - x * x);
 
         Point P1 = Point (
-            a.getPoint().x() + x * ex - y * ey,
-            a.getPoint().y() + x * ey + y * ex
+            a->getPoint().x() + x * ex - y * ey,
+            a->getPoint().y() + x * ey + y * ex
         );
 
         Point P2 = Point (
-            a.getPoint().x() + x * ex + y * ey,
-            a.getPoint().y() + x * ey - y * ex
+            a->getPoint().x() + x * ex + y * ey,
+            a->getPoint().y() + x * ey - y * ex
         );
 
         intersections.push_back(P1);
@@ -150,12 +150,12 @@ std::vector <Point> getIntersections (Circle a, Circle b) {
     return intersections;
 }
 
-std::vector <Point> getIntersections (Object a, Object b) {
+std::vector <Point> getIntersections (Object *a, Object *b) {
     std::vector <Point> intersections (0);
 
     // Get all points of the objects
-    std::vector <Point> aPoints = a.getPoints();
-    std::vector <Point> bPoints = b.getPoints();
+    std::vector <Point> aPoints = a->getPoints();
+    std::vector <Point> bPoints = b->getPoints();
 
     // Get all lines of the objects
     std::vector <Line> aLines (0);
