@@ -14,6 +14,7 @@ else
 endif
 
 # setting vars
+DEPENDENCIES = libs\*.dll # a backslash for windows!
 BIN = math_tool
 FONT = arial.ttf
 SFILES = main.cpp
@@ -32,6 +33,7 @@ LINKER_FLAGS = -L gui/ -L backend/ -lgui -lbackend $(OS_FLAGS) $(SDL2_LIBS) -lSD
 $(BIN): $(LIBS) $(OFILES)
 	$(COMPILER_COMMAND) -o $(BIN) $(OFILES) $(LINKER_FLAGS)
 ifeq ($(OS),Windows_NT)
+	copy $(DEPENDENCIES) bin
 	copy $(BIN).exe bin
 	copy $(FONT) bin
 else
@@ -56,6 +58,7 @@ ifeq ($(OS),Windows_NT)
 	del $(BIN).exe
 	del bin\$(FONT)
 	del bin\$(BIN).exe
+	del bin\*.dll
 else
 	rm -f $(OFILES)
 	rm -f $(BIN)
