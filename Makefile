@@ -1,7 +1,7 @@
 # os specifics
 ifeq ($(OS),Windows_NT)
 	OS_FLAGS = -w -Wl,-subsystem,windows -lmingw32
-	SDL2_LIBS = -L"${CURDIR}\gui\lib\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib" -L"${CURDIR}\gui\lib\SDL2_ttf-2.0.15\i686-w64-mingw32\lib" -lSDL2main -lSDL2
+	SDL2_LIBS = -L"${CURDIR}\gui\lib\SDL2\SDL2-2.0.12\i686-w64-mingw32\lib" -L"${CURDIR}\gui\lib\SDL2_ttf-2.0.15\i686-w64-mingw32\lib" -L"${CURDIR}\gui\lib\SDL2_ttf-2.0.15\i686-w64-mingw32\bin" -lSDL2main -lSDL2
 	SDL2_CFLAGS = -I"${CURDIR}\gui\lib\SDL2\SDL2-2.0.12\i686-w64-mingw32\include" -I"${CURDIR}\gui\lib\SDL2\SDL2-2.0.12\i686-w64-mingw32\include\SDL2" -I"${CURDIR}\gui\lib\SDL2_ttf-2.0.15\i686-w64-mingw32\include" -I"${CURDIR}\gui\lib\SDL2_ttf-2.0.15\i686-w64-mingw32\include\SDL2"
 	ARCHIVE_COMMAND = ar
 	COMPILER_COMMAND = g++
