@@ -1,7 +1,8 @@
 # math-tool ![C/C++ CI](https://github.com/ColdIV/math-tool/workflows/C/C++%20CI/badge.svg)
 math-tool - a school project
 
-**Note**: Although it is public, it is still a school project, so we wont accept any PRs that aren't our own.
+**Note**: This was a school project but has since been finished and thus is open for contributions.
+We don't plan to work on this any further but if you want to try something, or feel like adding a feature or whatsoever - feel free!
 
 # General description
 The tool consists of 3 main parts:
