@@ -1,4 +1,4 @@
-# math-tool
+# math-tool ![C/C++ CI](https://github.com/ColdIV/math-tool/workflows/C/C++%20CI/badge.svg)
 math-tool - a school project
 
 **Note**: Although it is public, it is still a school project, so we wont accept any PRs that aren't our own.
